@@ -1,0 +1,118 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap");
+.App {
+  text-align: center;
+  font-family: "Montserrat", sans-serif;
+}
+.Weather {
+  background: url("./images/weather/dull.jpg");
+  background-size: cover;
+  background-position: right top;
+  min-width: 320px;
+  max-width: 320px;
+}
+
+.Dreamary {
+  background: rgb(217, 63, 251);
+  background: linear-gradient(
+    225deg,
+    rgba(217, 63, 251, 1) 0%,
+    rgba(252, 70, 181, 1) 100%
+  );
+  min-width: 320px;
+  max-width: 320px;
+  min-height: 388px;
+}
+
+.ToDos {
+  background: rgb(180, 255, 156);
+  background: linear-gradient(
+    225deg,
+    rgba(180, 255, 156, 1) 0%,
+    rgba(49, 255, 90, 1) 100%
+  );
+  min-width: 320px;
+  min-height: 300px;
+  max-width: 320px;
+}
+
+.Naturely {
+  background: url("https://source.unsplash.com/random/700×900/?nature");
+  background-size: cover;
+  min-width: 320px;
+  min-height: 520px;
+  max-width: 320px;
+}
+
+.Calendar {
+  background: rgb(255, 244, 156);
+  background: linear-gradient(
+    225deg,
+    rgba(255, 244, 156, 1) 0%,
+    rgba(255, 209, 56, 1) 100%
+  );
+  min-width: 320px;
+  min-height: 200px;
+  max-width: 320px;
+}
+
+.Strava {
+  background: rgb(255, 202, 156);
+  background: linear-gradient(
+    225deg,
+    rgba(255, 202, 156, 1) 0%,
+    rgba(252, 76, 2, 1) 100%
+  );
+  min-width: 320px;
+  max-width: 320px;
+  min-height: 330px;
+  scrollbar-width: auto;
+  scrollbar-color: #fc4c02 #ffffff;
+}
+
+.activities::-webkit-scrollbar {
+  width: 8px;
+  left: 10px;
+}
+
+.activities::-webkit-scrollbar-track {
+  background: #ffffff;
+  border-radius: 20px;
+}
+
+.activities::-webkit-scrollbar-thumb {
+  background-color: #fc4c02;
+  border-radius: 10px;
+  border: 3px solid #ffffff;
+}
+
+.Sportify {
+  background: rgb(156, 161, 255);
+  background: linear-gradient(
+    225deg,
+    rgba(156, 161, 255, 1) 0%,
+    rgba(140, 33, 255, 1) 100%
+  );
+  min-width: 320px;
+  max-width: 320px;
+  min-height: 170px;
+}
+
+.tile {
+  width: 60px;
+  height: 60px;
+  min-height: 60px;
+  min-width: 60px;
+}
+
+.activities {
+  min-height: 100px;
+  max-height: 100px;
+  overflow-y: scroll;
+}
+
+.activity-name {
+  max-width: 50px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
