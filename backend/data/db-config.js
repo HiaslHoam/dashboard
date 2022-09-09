@@ -12,15 +12,15 @@ module.exports = {
 };
 
 function find() {
-  return db("dashboard");
+  return db("user");
 }
 
 function findById(id) {
-  return db("dashboard").where({ id: Number(id) });
+  return db("user").where({ id: Number(id) });
 }
 
 function insert(post) {
-  return db("dashboard")
+  return db("user")
     .insert(post)
     .then((ids) => {
       id: ids[0];
@@ -28,9 +28,9 @@ function insert(post) {
 }
 
 function update(id, post) {
-  return db("dashboard").where("id", Number(id)).update(post);
+  return db("user").where("id", Number(id)).update(post);
 }
 
 function remove(id) {
-  return db("dashboard").where("id", Number(id)).del();
+  return db("user").where("id", Number(id)).del();
 }
