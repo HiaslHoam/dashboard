@@ -6,6 +6,7 @@ import Sportify from "../components/Sportify/Sportify";
 import Strava from "../components/Strava/Strava";
 import ToDos from "../components/ToDos/ToDos";
 import Weather from "../components/Weather/Weather";
+import WeatherForecast from "../components/Weather/WeatherForecast";
 
 function Dashboard() {
   return (
@@ -15,6 +16,9 @@ function Dashboard() {
         <Naturely></Naturely>
         <div className="flex gap-5 flex-col">
           <Weather></Weather>
+          <WeatherForecast></WeatherForecast>
+        </div>
+        <div className="flex gap-5 flex-col ">
           <Dreamary></Dreamary>
         </div>
         <div className="flex gap-5 flex-col ">

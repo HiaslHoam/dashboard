@@ -38,6 +38,12 @@ app.get("/users/:id", async (req, res) => {
     });
 });
 
+app.get("/users", async (req, res) => {
+  database("user").then((users) => {
+    res.json(users);
+  });
+});
+
 const updateUser = async (req, res) => {
   try {
     const { username, strava_refresh } = req.body;

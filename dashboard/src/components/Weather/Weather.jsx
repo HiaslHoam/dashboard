@@ -7,9 +7,9 @@ function Weather() {
 
   const WeatherFetch = async () => {
     const response = await getWeather();
-    //setWeather({ symbolPhrase: "klar", temperature: 23, symbol: "d100" });
-    setWeather(response.data.current);
-    console.log(response.data.current);
+    setWeather({ symbolPhrase: "klar", temperature: 23, symbol: "d100" });
+    //setWeather(response.data.current);
+    //console.log(response.data.current);
   };
 
   useEffect(() => {
