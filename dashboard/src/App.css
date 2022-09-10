@@ -1,4 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap");
+
+:root {
+  --dark: rgb(39 39 42);
+}
+
 .App {
   text-align: center;
   font-family: "Montserrat", sans-serif;
@@ -46,7 +51,7 @@
 }
 
 .Naturely {
-  background: url("https://source.unsplash.com/random/700×900/?nature");
+  background: url("https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1887&q=80");
   background-size: cover;
   min-width: 320px;
   min-height: 520px;
@@ -75,8 +80,6 @@
   min-width: 320px;
   max-width: 320px;
   min-height: 330px;
-  scrollbar-width: auto;
-  scrollbar-color: #fc4c02 #ffffff;
 }
 
 .activities::-webkit-scrollbar {
@@ -93,6 +96,24 @@
   background-color: #fc4c02;
   border-radius: 10px;
   border: 3px solid #ffffff;
+}
+
+@media (prefers-color-scheme: dark) {
+  .activities::-webkit-scrollbar {
+    width: 8px;
+    left: 10px;
+  }
+
+  .activities::-webkit-scrollbar-track {
+    background: var(--dark);
+    border-radius: 20px;
+  }
+
+  .activities::-webkit-scrollbar-thumb {
+    background-color: white;
+    border-radius: 10px;
+    border: 3px solid var(--dark);
+  }
 }
 
 .Sportify {
@@ -112,6 +133,25 @@
   height: 60px;
   min-height: 60px;
   min-width: 60px;
+}
+
+.tile-big {
+  width: 60px;
+  height: 60px;
+}
+
+.forecaster {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  overflow-x: scroll;
+}
+
+.forecast-text {
+  text-shadow: 0px 0px 2px #00000070;
+}
+
+.forecaster::-webkit-scrollbar {
+  display: none;
 }
 
 .activities {

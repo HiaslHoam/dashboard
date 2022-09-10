@@ -7,7 +7,7 @@ function Weather() {
 
   const WeatherFetch = async () => {
     const response = await getWeather();
-    setWeather({ symbolPhrase: "klar", temperature: 23, symbol: "d100" });
+    setWeather({ symbolPhrase: "bewölkt", temperature: 19, symbol: "d300" });
     //setWeather(response.data.current);
     //console.log(response.data.current);
   };
@@ -29,7 +29,7 @@ function Weather() {
                   {weather?.temperature}°
                 </p>
                 <p className="text-white font-thin">|</p>
-                <p className="text-white">München</p>
+                <p className="text-white">Ürzig</p>
               </div>
             </div>
             <div className="text-white font-thin"></div>

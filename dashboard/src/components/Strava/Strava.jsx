@@ -8,7 +8,6 @@ function Strava() {
   const StravaData = async () => {
     const response = await getStravaData();
     setStravaData(response.data);
-    console.log(response.data);
   };
 
   function distancerender(distance) {
@@ -113,8 +112,8 @@ function Strava() {
               <div>Diese Woche</div>
             </div>
 
-            <div className="bg-white shadow-md rounded-2xl">
-              <div className="activities  text-black  text-xs m-1 overflow-hidden">
+            <div className="bg-white dark:bg-zinc-800 shadow-md rounded-2xl">
+              <div className="activities text-black dark:text-white text-xs m-1 overflow-hidden">
                 {stravaData.map((activity, index) => (
                   <div key={index} className="">
                     <span className="activity-name">{activity.name} </span>|
