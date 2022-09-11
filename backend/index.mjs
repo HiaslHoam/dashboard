@@ -1,20 +1,10 @@
-const express = require("express");
-const database = require("./database_connection");
-const cors = require("cors");
-const bodyParser = require("body-parser");
-const app = express();
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
+import { getServer } from "./src/server.mjs";
+
+/*
 const SECRET = "test";
 
-app.use(cors());
-app.use(bodyParser.json());
-app.get("/", (request, response, next) => {
-  response.sendStatus(200);
-});
-
 app.post("/users", (request, response, next) => {
-  bcrypt.hash(request.body.password, 10).then((hashedPassword) => {
+  hash(request.body.password, 10).then((hashedPassword) => {
     return database("user")
       .insertUser({
         username: request.body.username,
@@ -28,16 +18,6 @@ app.post("/users", (request, response, next) => {
   });
 });
 
-app.get("/users/:id", async (req, res) => {
-  const { id } = req.params;
-
-  database("user")
-    .where({ id })
-    .then((users) => {
-      res.json(users);
-    });
-});
-
 app.get("/weather/:id", async (req, res) => {
   const { id } = req.params;
 
@@ -46,12 +26,6 @@ app.get("/weather/:id", async (req, res) => {
     .then((weather) => {
       res.json(weather);
     });
-});
-
-app.get("/users", async (req, res) => {
-  database("user").then((users) => {
-    res.json(users);
-  });
 });
 
 app.get("/weather", async (req, res) => {
@@ -72,8 +46,7 @@ const updateUser = async (req, res) => {
       .where("id", req.params.id)
       .update(user)
       .then(() => {
-        database
-          .select()
+        select()
           .from("user")
           .where("id", req.params.id)
           .then((user) => {
@@ -112,8 +85,7 @@ const updateWeather = async (req, res) => {
       .where("id", req.params.id)
       .update(weather)
       .then(() => {
-        database
-          .select()
+        select()
           .from("weather")
           .where("id", req.params.id)
           .then((weather) => {
@@ -139,19 +111,17 @@ app.post("/login", (request, response, next) => {
           error: "No user by that name",
         });
       } else {
-        return bcrypt
-          .compare(request.body.password, user.password_digest)
-          .then((isAuthenticated) => {
+        const compare(request.body.password, user.password_digest).then(
+          (isAuthenticated) => {
             if (!isAuthenticated) {
-              response.status(401).json({
-                error: "Unauthorized Access!",
-              });
+              throw new ServerError("Unauthorized Access");
             } else {
-              return jwt.sign(user, SECRET, (error, token) => {
+              return sign(user, SECRET, (error, token) => {
                 response.status(200).json({ token });
               });
             }
-          });
+          }
+        );
       }
     });
 });
@@ -159,7 +129,7 @@ app.post("/login", (request, response, next) => {
 app.get("/verify", (request, response, next) => {
   if (request.headers.authorization) {
     const token = request.headers.authorization.split(" ")[1];
-    jwt.verify(token, SECRET, (error, decodedToken) => {
+    verify(token, SECRET, (error, decodedToken) => {
       if (error) {
         response.status(401).json({
           message: "Unauthorized Access!",
@@ -178,4 +148,10 @@ app.get("/verify", (request, response, next) => {
   }
 });
 
-app.listen(8000);
+*/
+
+const app = getServer();
+
+app.listen(8000, () => {
+  console.log("Server started at http://localhost:8000");
+});

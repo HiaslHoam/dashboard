@@ -2,10 +2,11 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.mjs",
+  "type": "module",
   "scripts": {
-    "server": "nodemon index.js",
-    "start": "node index.js",
+    "server": "nodemon index.mjs",
+    "start": "node index.mjs",
     "migrate": "knex migrate:latest",
     "seed": "knex seed:run"
   },

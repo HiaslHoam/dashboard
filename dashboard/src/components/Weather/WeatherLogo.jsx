@@ -9,6 +9,10 @@ import mediumrain from "../../images/weather/d420.png";
 import heavyrain from "../../images/weather/d430.png";
 import partlycloudynight from "../../images/weather/n200_300.png";
 
+export const sources = {
+  "d100": sunny,
+  "d000": sunny,
+}
 function WeatherLogo({ weather }) {
   return (
     <>
@@ -16,7 +20,7 @@ function WeatherLogo({ weather }) {
         <img
           title={weather?.symbolPhrase}
           className="max-h-24"
-          src={sunny}
+          src={sources[weather.symbol]}
           alt=""
         ></img>
       )}
