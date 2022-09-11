@@ -4,22 +4,27 @@ const config = require("../knexfile.js");
 const db = knex(config.development);
 
 module.exports = {
-  find,
-  findById,
-  insert,
-  update,
-  remove,
+  findUser,
+  findUserById,
+  insertUser,
+  updateUser,
+  removeUser,
+  findWeather,
+  findWeatherById,
+  insertWeather,
+  updateWeather,
+  removeWeather,
 };
 
-function find() {
+function findUser() {
   return db("user");
 }
 
-function findById(id) {
+function findUserById(id) {
   return db("user").where({ id: Number(id) });
 }
 
-function insert(post) {
+function insertUser(post) {
   return db("user")
     .insert(post)
     .then((ids) => {
@@ -27,10 +32,34 @@ function insert(post) {
     });
 }
 
-function update(id, post) {
+function updateUser(id, post) {
   return db("user").where("id", Number(id)).update(post);
 }
 
-function remove(id) {
+function removeUser(id) {
+  return db("user").where("id", Number(id)).del();
+}
+
+function findWeather() {
+  return db("user");
+}
+
+function findWeatherById(id) {
+  return db("user").where({ id: Number(id) });
+}
+
+function insertWeather(post) {
+  return db("user")
+    .insert(post)
+    .then((ids) => {
+      id: ids[0];
+    });
+}
+
+function updateWeather(id, post) {
+  return db("user").where("id", Number(id)).update(post);
+}
+
+function removeWeather(id) {
   return db("user").where("id", Number(id)).del();
 }

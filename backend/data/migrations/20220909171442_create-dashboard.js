@@ -9,6 +9,7 @@ exports.up = function (knex) {
     tbl.string("username").notNullable();
     tbl.string("password_digest").notNullable();
     tbl.string("strava_refresh");
+    tbl.timestamps();
   });
 };
 
@@ -17,5 +18,5 @@ exports.up = function (knex) {
  * @returns { Promise<void> }
  */
 exports.down = function (knex) {
-  return knex.schema.dropTableIfExists("dashboard");
+  return knex.schema.dropTableIfExists("user");
 };

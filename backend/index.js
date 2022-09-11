@@ -16,7 +16,7 @@ app.get("/", (request, response, next) => {
 app.post("/users", (request, response, next) => {
   bcrypt.hash(request.body.password, 10).then((hashedPassword) => {
     return database("user")
-      .insert({
+      .insertUser({
         username: request.body.username,
         password_digest: hashedPassword,
       })
@@ -38,9 +38,25 @@ app.get("/users/:id", async (req, res) => {
     });
 });
 
+app.get("/weather/:id", async (req, res) => {
+  const { id } = req.params;
+
+  database("weather")
+    .where({ id })
+    .then((weather) => {
+      res.json(weather);
+    });
+});
+
 app.get("/users", async (req, res) => {
   database("user").then((users) => {
     res.json(users);
+  });
+});
+
+app.get("/weather", async (req, res) => {
+  database("weather").then((weather) => {
+    res.json(weather);
   });
 });
 
@@ -70,7 +86,48 @@ const updateUser = async (req, res) => {
   }
 };
 
+const updateWeather = async (req, res) => {
+  try {
+    const {
+      location_name,
+      lat,
+      long,
+      current,
+      forecast_hourly,
+      forecast_daily,
+      img_url,
+    } = req.body;
+
+    const weather = {};
+
+    if (location_name) weather.location_name = location_name;
+    if (lat) weather.lat = lat;
+    if (long) weather.long = long;
+    if (current) weather.current = current;
+    if (forecast_hourly) weather.forecast_hourly = forecast_hourly;
+    if (forecast_daily) weather.forecast_daily = forecast_daily;
+    if (img_url) weather.img_url = img_url;
+
+    await database("weather")
+      .where("id", req.params.id)
+      .update(weather)
+      .then(() => {
+        database
+          .select()
+          .from("weather")
+          .where("id", req.params.id)
+          .then((weather) => {
+            res.send(weather[0]);
+          });
+      });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+};
+
 app.put("/users/:id", updateUser);
+app.put("/weather/:id", updateWeather);
 
 app.post("/login", (request, response, next) => {
   database("user")
