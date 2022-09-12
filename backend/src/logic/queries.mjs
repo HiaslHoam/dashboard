@@ -4,7 +4,7 @@ import axios from "axios";
 export async function getWeatherForAllLocations() {
   const locations = await database("locations");
   locations.forEach((location) => {
-    //writeWeatherCurrent(location.id);
+    writeWeatherCurrent(location.id);
     writeWeatherForecastHourly(location.id);
   });
 }
@@ -15,7 +15,9 @@ export async function fetchWeatherForecast(
   forecast
 ) {
   console.log(forecast);
-  const url = `https://foreca-weather.p.rapidapi.com/forecast/${forecast}/${apiLocationId}`;
+  const url = `https://foreca-weather.p.rapidapi.com/${
+    forecast === "current" ? "current" : `forecast/${forecast}`
+  }/${apiLocationId}`;
 
   const options = {
     method: "GET",
