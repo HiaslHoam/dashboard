@@ -8,6 +8,11 @@ import {
   loginUser,
 } from "./routes/users.mjs";
 import cors from "cors";
+import {
+  getWeatherCurrentByLocationIdHandler,
+  getWeatherForecastByLocationIdHandler,
+  getWeatherHandler,
+} from "./routes/weather.mjs";
 
 export const getServer = () => {
   // Create a new http (express) server
@@ -36,8 +41,23 @@ export const getServer = () => {
     },
     {
       method: "get",
+      path: "/weather",
+      handler: getWeatherHandler,
+    },
+    {
+      method: "get",
       path: "/users/:id",
       handler: getUserByIdHandler,
+    },
+    {
+      method: "get",
+      path: "/weather/current/:locationId",
+      handler: getWeatherCurrentByLocationIdHandler,
+    },
+    {
+      method: "get",
+      path: "/weather/forecast/:locationId",
+      handler: getWeatherForecastByLocationIdHandler,
     },
     {
       method: "post",

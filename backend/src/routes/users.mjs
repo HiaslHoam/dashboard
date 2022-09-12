@@ -37,8 +37,8 @@ export const getUserByIdHandler = async (req, res) => {
   return res.json({ id: user.id, username: user.username });
 };
 
-export const loginUser = async (username, password) => {
-  const user = await getUserById(username);
+export const loginUser = async (id, password) => {
+  const user = await getUserById(id);
   const pwIsValid = await compare(password, user.password_digest);
   if (!pwIsValid) {
     throw new ServerError(

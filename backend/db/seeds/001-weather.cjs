@@ -23,12 +23,15 @@ exports.seed = async function (knex) {
       passwordDigest:
         "$2b$10$El92.8dwUoM27pSb5Ibjy.IxEluLKsk7VX3RgqCwDNq3iUyw6eg56",
       stravaRefresh: "18e853f11cea61874f6358ee1986c07db2d15166",
+      currentLocation: 1,
     },
     {
       id: 2,
       username: "Hannah",
       passwordDigest:
         "$2b$10$El92.8dwUoM27pSb5Ibjy.IxEluLKsk7VX3RgqCwDNq3iUyw6eg56",
+
+      currentLocation: 2,
     },
   ]);
   await knex("weather").del();
@@ -45,7 +48,42 @@ exports.seed = async function (knex) {
       temperature: 21,
       feelsLikeTemp: 21,
       isForecast: true,
-      time: "2022-09-12T18:00+02:00",
+      time: "2022-09-13T00:00+02:00",
+    },
+    {
+      locationId: 2,
+      temperature: 21,
+      feelsLikeTemp: 21,
+      isForecast: true,
+      time: "2022-09-14T00:00+02:00",
+    },
+    {
+      locationId: 2,
+      temperature: 21,
+      feelsLikeTemp: 21,
+      isForecast: true,
+      time: "2022-09-15T00:00+02:00",
+    },
+    {
+      locationId: 2,
+      temperature: 21,
+      feelsLikeTemp: 21,
+      isForecast: true,
+      time: "2022-09-16T00:00+02:00",
+    },
+    {
+      locationId: 2,
+      temperature: 21,
+      feelsLikeTemp: 21,
+      isForecast: false,
+      time: "2022-09-12T18:02+02:00",
+    },
+    {
+      locationId: 2,
+      temperature: 21,
+      feelsLikeTemp: 21,
+      isForecast: false,
+      time: "2022-09-12T19:02+02:00",
     },
   ]);
 };
