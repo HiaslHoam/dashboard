@@ -7,7 +7,7 @@ const { sign } = jsonwebtoken;
 const SECRET = "test";
 
 export const getUsers = async () => {
-  const users = await database("user");
+  const users = await database("users");
   return users;
 };
 
@@ -22,13 +22,19 @@ export const getUsersHandler = async (req, res) => {
 };
 
 export const getUserById = async (id) => {
-  const user = await database("user").where("id", "=", id).first();
+  const user = await database("users").where("id", "=", id).first();
   if (!user) {
     throw new ServerError(
       "No user could be found with this username or password."
     );
   }
   return user;
+};
+
+export const getUserByIdHandler = async (req, res) => {
+  const { id } = req.params;
+  const user = await getUserById(id);
+  return res.json({ id: user.id, username: user.username });
 };
 
 export const loginUser = async (username, password) => {

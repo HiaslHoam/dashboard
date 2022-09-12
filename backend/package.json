@@ -7,8 +7,8 @@
   "scripts": {
     "server": "nodemon index.mjs",
     "start": "node index.mjs",
-    "migrate": "knex migrate:latest",
-    "seed": "knex seed:run"
+    "migrate": "knex migrate:latest --knexfile knexfile.mjs",
+    "seed": "knex seed:run --knexfile knexfile.mjs"
   },
   "keywords": [],
   "author": "",

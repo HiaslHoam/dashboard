@@ -2,6 +2,7 @@ import express from "express";
 import ServerError from "./logic/error.mjs";
 import {
   getUserById,
+  getUserByIdHandler,
   getUsers,
   getUsersHandler,
   loginUser,
@@ -36,11 +37,7 @@ export const getServer = () => {
     {
       method: "get",
       path: "/users/:id",
-      handler: async (req, res) => {
-        const { id } = req.params;
-        const user = await getUserById(id);
-        return res.json(user);
-      },
+      handler: getUserByIdHandler,
     },
     {
       method: "post",
