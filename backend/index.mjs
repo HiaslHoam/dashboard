@@ -1,3 +1,4 @@
+import { getWeatherForAllLocations } from "./src/logic/queries.mjs";
 import { getServer } from "./src/server.mjs";
 
 /*
@@ -154,4 +155,6 @@ const app = getServer();
 
 app.listen(8000, () => {
   console.log("Server started at http://localhost:8000");
+  getWeatherForAllLocations();
+  //setInterval(getWeatherForAllLocations, 300000);
 });

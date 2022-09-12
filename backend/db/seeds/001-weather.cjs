@@ -6,13 +6,21 @@ exports.seed = async function (knex) {
   // Deletes ALL existing entries
   await knex("locations").del();
   await knex("locations").insert([
-    { id: 1, locationName: "Ürzig", lat: "49.98", long: "7.01", alt: "200" },
+    {
+      id: 1,
+      locationName: "Ürzig",
+      lat: "49.98",
+      long: "7.01",
+      alt: "200",
+      apiLocationId: "102818121",
+    },
     {
       id: 2,
       locationName: "München",
       lat: "48.14",
       long: "11.58",
       alt: "510",
+      apiLocationId: "102867714",
     },
   ]);
   await knex("users").del();
@@ -35,55 +43,4 @@ exports.seed = async function (knex) {
     },
   ]);
   await knex("weather").del();
-  await knex("weather").insert([
-    {
-      locationId: 2,
-      temperature: 21,
-      feelsLikeTemp: 21,
-      isForecast: false,
-      time: "2022-09-12T17:02+02:00",
-    },
-    {
-      locationId: 2,
-      temperature: 21,
-      feelsLikeTemp: 21,
-      isForecast: true,
-      time: "2022-09-13T00:00+02:00",
-    },
-    {
-      locationId: 2,
-      temperature: 21,
-      feelsLikeTemp: 21,
-      isForecast: true,
-      time: "2022-09-14T00:00+02:00",
-    },
-    {
-      locationId: 2,
-      temperature: 21,
-      feelsLikeTemp: 21,
-      isForecast: true,
-      time: "2022-09-15T00:00+02:00",
-    },
-    {
-      locationId: 2,
-      temperature: 21,
-      feelsLikeTemp: 21,
-      isForecast: true,
-      time: "2022-09-16T00:00+02:00",
-    },
-    {
-      locationId: 2,
-      temperature: 21,
-      feelsLikeTemp: 21,
-      isForecast: false,
-      time: "2022-09-12T18:02+02:00",
-    },
-    {
-      locationId: 2,
-      temperature: 21,
-      feelsLikeTemp: 21,
-      isForecast: false,
-      time: "2022-09-12T19:02+02:00",
-    },
-  ]);
 };

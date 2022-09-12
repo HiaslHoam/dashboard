@@ -18,14 +18,17 @@ exports.up = async function (knex) {
     tbl.integer("lat").notNullable();
     tbl.integer("long").notNullable();
     tbl.integer("alt").notNullable().defaultTo(0);
+    tbl.integer("apiLocationId");
     tbl.string("imgUrl", 511);
     tbl.timestamps();
   });
   await knex.schema.createTable("weather", (tbl) => {
+    tbl.increments("id").notNullable().index().unique();
     tbl.timestamp("time").notNullable();
     tbl.uuid("locationId").unsigned();
     tbl.foreign("locationId").references("locations.id");
     tbl.boolean("isForecast").notNullable().defaultTo(false);
+    tbl.string("forecastType");
     tbl.string("symbol");
     tbl.string("symbolPhrase");
     tbl.integer("temperature");
@@ -38,6 +41,7 @@ exports.up = async function (knex) {
     tbl.integer("precipRate");
     tbl.integer("uvIndex");
     tbl.integer("pressure");
+    tbl.timestamp("createdAt").notNullable().defaultTo(knex.fn.now());
   });
 };
 

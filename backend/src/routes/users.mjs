@@ -34,7 +34,11 @@ export const getUserById = async (id) => {
 export const getUserByIdHandler = async (req, res) => {
   const { id } = req.params;
   const user = await getUserById(id);
-  return res.json({ id: user.id, username: user.username });
+  return res.json({
+    id: user.id,
+    username: user.username,
+    stravaRefresh: user.stravaRefresh,
+  });
 };
 
 export const loginUser = async (id, password) => {

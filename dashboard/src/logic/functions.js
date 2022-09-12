@@ -29,7 +29,7 @@ export async function getWeather() {
 export async function getStravaRefreshToken() {
   const axios = require("axios");
   try {
-    const response = await axios.get("http://localhost:8000/users/1");
+    const response = await axios.get("http://192.168.178.20:8000/users/1");
     return response;
   } catch (err) {
     console.error(err);
@@ -48,9 +48,10 @@ export async function getStravaData() {
   const axios = require("axios");
   try {
     const response = await axios.post(
-      `https://www.strava.com/oauth/token?client_id=88883&client_secret=ec860807904b007cf49401fcd46df778782db75d&grant_type=refresh_token&refresh_token=${refresh.data[0].strava_refresh}`
+      `https://www.strava.com/oauth/token?client_id=88883&client_secret=ec860807904b007cf49401fcd46df778782db75d&grant_type=refresh_token&refresh_token=${refresh.data.stravaRefresh}`
     );
     const access_token = response.data.access_token;
+    console.log(access_token);
     try {
       const options = {
         headers: {
@@ -58,7 +59,8 @@ export async function getStravaData() {
         },
       };
       const before = Math.floor(Date.now() / 1000);
-      const after = getMonday();
+      //const after = getMonday();
+      let after = 1652375110;
       const response = await axios.get(
         `https://www.strava.com/api/v3/athlete/activities?before=${before}&after=${after}`,
         options

@@ -1,8 +1,5 @@
 import { database } from "../logic/database.mjs";
 import ServerError from "../logic/error.mjs";
-import jsonwebtoken from "jsonwebtoken";
-const { sign } = jsonwebtoken;
-const SECRET = "test";
 
 export const getWeather = async () => {
   const weather = await database("weather");
@@ -28,6 +25,7 @@ export const getWeatherHandler = async (req, res) => {
       precipRate: weather.precipRate,
       uvIndex: weather.uvIndex,
       pressure: weather.pressure,
+      createdAt: weather.createdAt,
     }))
   );
 };
@@ -47,6 +45,7 @@ export const getWeatherCurrentByLocationId = async (locationId) => {
 export const getWeatherCurrentByLocationIdHandler = async (req, res) => {
   const { locationId } = req.params;
   const weather = await getWeatherCurrentByLocationId(locationId);
+  console.log(weather);
   return res.json({
     locationId: weather.locationId,
     time: weather.time,
@@ -63,15 +62,16 @@ export const getWeatherCurrentByLocationIdHandler = async (req, res) => {
     precipRate: weather.precipRate,
     uvIndex: weather.uvIndex,
     pressure: weather.pressure,
+    createdAt: weather.createdAt,
   });
 };
 
 export const getWeatherForecastByLocationId = async (locationId) => {
   const weather = await database("weather")
     .where("locationId", "=", locationId)
-    .where("isForecast", "=", 1)
+    .where("isForecast", "=", true)
     .orderBy("time", "desc")
-    .limit(10);
+    .limit(8);
   if (!weather) {
     throw new ServerError("No weather could be found for this location ID.");
   }
@@ -98,6 +98,7 @@ export const getWeatherForecastByLocationIdHandler = async (req, res) => {
       precipRate: weather.precipRate,
       uvIndex: weather.uvIndex,
       pressure: weather.pressure,
+      createdAt: weather.createdAt,
     }))
   );
 };
