@@ -1,13 +1,13 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { getWeather } from "../../logic/functions";
+import { getWeather, getWeatherForecast } from "../../logic/functions";
 
 function Weather() {
   const [weather, setWeather] = useState([]);
 
   const WeatherFetch = async () => {
-    const response = await getWeather();
-    setWeather({ symbolPhrase: "bewölkt", temperature: 19, symbol: "d300" });
+    const current = await getWeather(2);
+    setWeather(current.data);
     //setWeather(response.data.current);
     //console.log(response.data.current);
   };

@@ -1,24 +1,20 @@
-export async function getWeather() {
+export async function getWeather(locationId) {
   const axios = require("axios");
-  const options = {
-    method: "GET",
-    url: "https://foreca-weather.p.rapidapi.com/current/102867714",
-    params: {
-      alt: "0",
-      tempunit: "C",
-      windunit: "MS",
-      tz: "Europe/Berlin",
-      lang: "de",
-    },
-    headers: {
-      "X-RapidAPI-Key": "a988feaf5bmsh02ece402868f339p1f1668jsn72ce021b7067",
-      "X-RapidAPI-Host": "foreca-weather.p.rapidapi.com",
-    },
-  };
   try {
     const response = await axios.get(
-      "https://foreca-weather.p.rapidapi.com/current/102867714",
-      options
+      `http://localhost:8000/weather/current/${locationId}`
+    );
+    return response;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+export async function getWeatherForecast(locationId) {
+  const axios = require("axios");
+  try {
+    const response = await axios.get(
+      `http://localhost:8000/weather/forecast/${locationId}`
     );
     return response;
   } catch (err) {
@@ -29,7 +25,7 @@ export async function getWeather() {
 export async function getStravaRefreshToken() {
   const axios = require("axios");
   try {
-    const response = await axios.get("http://192.168.178.20:8000/users/1");
+    const response = await axios.get("http://192.168.178.28:8000/users/1");
     return response;
   } catch (err) {
     console.error(err);

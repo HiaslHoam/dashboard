@@ -14,7 +14,6 @@ export async function fetchWeatherForecast(
   locationAlt,
   forecast
 ) {
-  console.log(forecast);
   const url = `https://foreca-weather.p.rapidapi.com/${
     forecast === "current" ? "current" : `forecast/${forecast}`
   }/${apiLocationId}`;
@@ -38,34 +37,6 @@ export async function fetchWeatherForecast(
   try {
     const response = await axios.get(url, options);
     console.log(`Weather-Api fetched for location ${apiLocationId}`);
-    console.log(response.data.forecast);
-    return response;
-  } catch (err) {
-    console.error(err);
-  }
-}
-
-export async function fetchWeatherCurrent(apiLocationId, locationAlt) {
-  const options = {
-    method: "GET",
-    params: {
-      alt: `${locationAlt}`,
-      tempunit: "C",
-      windunit: "MS",
-      tz: "Europe/Berlin",
-      lang: "de",
-    },
-    headers: {
-      "X-RapidAPI-Key": "a988feaf5bmsh02ece402868f339p1f1668jsn72ce021b7067",
-      "X-RapidAPI-Host": "foreca-weather.p.rapidapi.com",
-    },
-  };
-  try {
-    const response = await axios.get(
-      `https://foreca-weather.p.rapidapi.com/current/${apiLocationId}`,
-      options
-    );
-    console.log(`Weather-Api fetched for location ${apiLocationId}`);
     return response;
   } catch (err) {
     console.error(err);
@@ -78,7 +49,6 @@ export async function writeWeatherCurrent(locationId) {
     .first();
   const apiLocationId = location.apiLocationId;
   const locationAlt = location.alt;
-  console.log(apiLocationId, locationAlt);
   const response = await fetchWeatherForecast(
     apiLocationId,
     locationAlt,
@@ -128,7 +98,6 @@ export async function writeWeatherForecastHourly(locationId) {
     .first();
   const apiLocationId = location.apiLocationId;
   const locationAlt = location.alt;
-  console.log(apiLocationId, locationAlt);
   const response = await fetchWeatherForecast(
     apiLocationId,
     locationAlt,
@@ -181,7 +150,7 @@ export async function writeWeatherForecastHourly(locationId) {
           )
           .delete();
       }
-      console.log("Writing new Forecast");
+      console.log(`Writing new Forecast`);
       return database("weather").insert(weather);
     })
   );

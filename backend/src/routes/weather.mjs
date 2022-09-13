@@ -71,7 +71,7 @@ export const getWeatherForecastByLocationId = async (locationId) => {
     .where("locationId", "=", locationId)
     .where("isForecast", "=", true)
     .orderBy("time", "desc")
-    .limit(8);
+    .limit(7);
   if (!weather) {
     throw new ServerError("No weather could be found for this location ID.");
   }

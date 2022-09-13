@@ -8,11 +8,12 @@ import lightrain from "../../images/weather/d410.png";
 import mediumrain from "../../images/weather/d420.png";
 import heavyrain from "../../images/weather/d430.png";
 import partlycloudynight from "../../images/weather/n200_300.png";
+import covered from "../../images/weather/d400.png";
 
 export const sources = {
-  "d100": sunny,
-  "d000": sunny,
-}
+  d100: sunny,
+  d000: sunny,
+};
 function WeatherLogo({ weather }) {
   return (
     <>
@@ -91,6 +92,14 @@ function WeatherLogo({ weather }) {
           title={weather?.symbolPhrase}
           className="max-h-24"
           src={partlycloudyrainnight}
+          alt=""
+        ></img>
+      )}
+      {weather?.symbol === "d400" && (
+        <img
+          title={weather?.symbolPhrase}
+          className="max-h-24"
+          src={covered}
           alt=""
         ></img>
       )}
