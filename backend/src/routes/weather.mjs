@@ -66,10 +66,11 @@ export const getWeatherCurrentByLocationIdHandler = async (req, res) => {
   });
 };
 
-export const getWeatherForecastByLocationId = async (locationId) => {
+export const getWeatherForecastHourlyByLocationId = async (locationId) => {
   const weather = await database("weather")
     .where("locationId", "=", locationId)
     .where("isForecast", "=", true)
+    .where("forecastType", "=", "hourly")
     .orderBy("time", "desc")
     .limit(7);
   if (!weather) {
@@ -81,7 +82,49 @@ export const getWeatherForecastByLocationId = async (locationId) => {
   return weather;
 };
 
-export const getWeatherForecastByLocationIdHandler = async (req, res) => {
+export const getWeatherForecastHourlyByLocationIdHandler = async (req, res) => {
+  const { locationId } = req.params;
+  const weather = await getWeatherForecastHourlyByLocationId(locationId);
+  return res.json(
+    weather.map((weather) => ({
+      locationId: weather.locationId,
+      time: weather.time,
+      isForecast: weather.isForecast,
+      symbol: weather.symbol,
+      symbolPhrase: weather.symbolPhrase,
+      temperature: weather.temperature,
+      feelsLikeTemp: weather.feelsLikeTemp,
+      relHumidity: weather.relHumidity,
+      windSpeed: weather.windSpeed,
+      windGust: weather.windGust,
+      windDirString: weather.windDirString,
+      precipProb: weather.precipProb,
+      precipRate: weather.precipRate,
+      uvIndex: weather.uvIndex,
+      pressure: weather.pressure,
+      createdAt: weather.createdAt,
+      forecastType: weather.forecastType,
+    }))
+  );
+};
+
+export const getWeatherForecastByLocationId = async (locationId) => {
+  const weather = await database("weather")
+    .where("locationId", "=", locationId)
+    .where("isForecast", "=", true)
+    .where("forecastType", "=", "daily")
+    .orderBy("time", "desc")
+    .limit(7);
+  if (!weather) {
+    throw new ServerError("No weather could be found for this location ID.");
+  }
+  weather.sort(function (a, b) {
+    return a.time.localeCompare(b.time);
+  });
+  return weather;
+};
+
+export const getWeatherForecastDailyByLocationIdHandler = async (req, res) => {
   const { locationId } = req.params;
   const weather = await getWeatherForecastByLocationId(locationId);
   return res.json(
@@ -102,6 +145,7 @@ export const getWeatherForecastByLocationIdHandler = async (req, res) => {
       uvIndex: weather.uvIndex,
       pressure: weather.pressure,
       createdAt: weather.createdAt,
+      forecastType: weather.forecastType,
     }))
   );
 };

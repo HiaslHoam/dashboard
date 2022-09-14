@@ -1,11 +1,17 @@
 import { database } from "../logic/database.mjs";
 import axios from "axios";
+import axiosqueue from "./axiosqueue.mjs";
+
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
 
 export async function getWeatherForAllLocations() {
   const locations = await database("locations");
   locations.forEach((location) => {
-    //writeWeatherCurrent(location.id);
+    writeWeatherCurrent(location.id);
     writeWeatherForecastHourly(location.id);
+    writeWeatherForecastDaily(location.id);
   });
 }
 
@@ -35,7 +41,7 @@ export async function fetchWeatherForecast(
     },
   };
   try {
-    const response = await axios.get(url, options);
+    const response = await axiosqueue.get(url, options);
     console.log(`Weather-Api fetched for location ${apiLocationId}`);
     return response;
   } catch (err) {
@@ -137,9 +143,80 @@ export async function writeWeatherForecastHourly(locationId) {
         pressure,
         isForecast: true,
         locationId: locationId,
+        forecastType: "hourly",
       };
       const existing = await database("weather")
         .where("isForecast", "=", true)
+        .where("forecastType", "=", "hourly")
+        .where("locationId", "=", weather.locationId)
+        .where("time", "=", weather.time);
+      if (existing.length > 0) {
+        await database("weather")
+          .whereIn(
+            "id",
+            existing.map((e) => e.id)
+          )
+          .delete();
+      }
+      console.log(`Writing new Forecast`);
+      return database("weather").insert(weather);
+    })
+  );
+}
+
+export async function writeWeatherForecastDaily(locationId) {
+  const location = await database("locations")
+    .where("id", "=", locationId)
+    .first();
+  const apiLocationId = location.apiLocationId;
+  const locationAlt = location.alt;
+  const response = await fetchWeatherForecast(
+    apiLocationId,
+    locationAlt,
+    "daily"
+  );
+  console.log(response.data);
+  await Promise.all(
+    response.data.forecast.map(async (forecast) => {
+      const {
+        date,
+        symbol,
+        symbolPhrase,
+        temperature,
+        feelsLikeTemp,
+        relHumidity,
+        windSpeed,
+        windGust,
+        windDirString,
+        precipProb,
+        precipRate,
+        uvIndex,
+        pressure,
+      } = forecast;
+
+      const time = date;
+
+      const weather = {
+        time,
+        symbol,
+        symbolPhrase,
+        temperature,
+        feelsLikeTemp,
+        relHumidity,
+        windSpeed,
+        windGust,
+        windDirString,
+        precipProb,
+        precipRate,
+        uvIndex,
+        pressure,
+        isForecast: true,
+        locationId: locationId,
+        forecastType: "daily",
+      };
+      const existing = await database("weather")
+        .where("isForecast", "=", true)
+        .where("forecastType", "=", "hourly")
         .where("locationId", "=", weather.locationId)
         .where("time", "=", weather.time);
       if (existing.length > 0) {

@@ -10,7 +10,8 @@ import {
 import cors from "cors";
 import {
   getWeatherCurrentByLocationIdHandler,
-  getWeatherForecastByLocationIdHandler,
+  getWeatherForecastDailyByLocationIdHandler,
+  getWeatherForecastHourlyByLocationIdHandler,
   getWeatherHandler,
 } from "./routes/weather.mjs";
 import { getLocationsHandler } from "./routes/locations.mjs";
@@ -57,8 +58,13 @@ export const getServer = () => {
     },
     {
       method: "get",
-      path: "/weather/forecast/:locationId",
-      handler: getWeatherForecastByLocationIdHandler,
+      path: "/weather/forecast/hourly/:locationId",
+      handler: getWeatherForecastHourlyByLocationIdHandler,
+    },
+    {
+      method: "get",
+      path: "/weather/forecast/daily/:locationId",
+      handler: getWeatherForecastDailyByLocationIdHandler,
     },
     {
       method: "get",
