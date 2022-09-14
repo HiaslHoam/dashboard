@@ -12,6 +12,9 @@ export const getLocationsHandler = async (req, res) => {
     locations.map((location) => ({
       id: location.id,
       locationName: location.locationName,
+      lat: location.lat,
+      long: location.long,
+      alt: location.alt,
     }))
   );
 };
