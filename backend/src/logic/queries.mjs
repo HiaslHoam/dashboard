@@ -4,7 +4,7 @@ import axios from "axios";
 export async function getWeatherForAllLocations() {
   const locations = await database("locations");
   locations.forEach((location) => {
-    writeWeatherCurrent(location.id);
+    //writeWeatherCurrent(location.id);
     writeWeatherForecastHourly(location.id);
   });
 }

@@ -58,6 +58,18 @@
   max-width: 320px;
 }
 
+.Settings {
+  background: rgb(119, 119, 119);
+  background: linear-gradient(
+    45deg,
+    rgba(119, 119, 119, 1) 0%,
+    rgba(213, 213, 213, 1) 100%
+  );
+  min-width: 320px;
+  min-height: 520px;
+  max-width: 320px;
+}
+
 .Calendar {
   background: rgb(255, 244, 156);
   background: linear-gradient(
@@ -136,8 +148,8 @@
 }
 
 .tile-big {
-  width: 60px;
-  height: 60px;
+  width: 100px;
+  height: 100px;
 }
 
 .forecaster {
@@ -165,4 +177,8 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+
+.scroll-container {
+  overflow: scroll !important;
 }

@@ -1,15 +1,32 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { getWeather, getWeatherForecast } from "../../logic/functions";
+import { getWeather } from "../../logic/functions";
 
-function Weather() {
+function Weather({ locationId }) {
   const [weather, setWeather] = useState([]);
+  const [location, setLocation] = useState();
+
+  const locations = [
+    {
+      id: "1",
+      locationName: "Ürzig",
+    },
+    {
+      id: "2",
+      locationName: "München",
+    },
+    {
+      id: "3",
+      locationName: "Bad Wiessee",
+    },
+  ];
 
   const WeatherFetch = async () => {
-    const current = await getWeather(2);
+    const current = await getWeather(locationId);
     setWeather(current.data);
-    //setWeather(response.data.current);
-    //console.log(response.data.current);
+    setLocation(
+      locations.find((x) => x.id === current.data?.locationId).locationName
+    );
   };
 
   useEffect(() => {
@@ -29,7 +46,7 @@ function Weather() {
                   {weather?.temperature}°
                 </p>
                 <p className="text-white font-thin">|</p>
-                <p className="text-white">Ürzig</p>
+                <p className="text-white">{location}</p>
               </div>
             </div>
             <div className="text-white font-thin"></div>

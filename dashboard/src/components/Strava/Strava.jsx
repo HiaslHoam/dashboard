@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import StravaTile from "./StravaTile";
 import { getStravaData } from "../../logic/functions";
+import ScrollContainer from "react-indiana-drag-scroll";
 
 function Strava() {
   const [stravaData, setStravaData] = useState();
@@ -112,7 +113,7 @@ function Strava() {
               <div>Diese Woche</div>
             </div>
 
-            <div className="bg-white dark:bg-zinc-800 shadow-md rounded-2xl">
+            {/* <div className="bg-white dark:bg-zinc-800 shadow-md rounded-2xl">
               <div className="activities text-black dark:text-white text-xs m-1 overflow-hidden">
                 {stravaData.map((activity, index) => (
                   <div key={index} className="">
@@ -132,9 +133,26 @@ function Strava() {
                   </div>
                 ))}
               </div>
-            </div>
+            </div> */}
+            <ScrollContainer className="grid grid-flow-col gap-5">
+              {stravaData.map((activity, index) => (
+                <div
+                  key={index}
+                  className="bg-white dark:bg-zinc-800 shadow-md mb-2 tile-big flex flex-col justify-center rounded-2xl text-black dark:text-white text-xs"
+                >
+                  {activity.name}
+                  <p>
+                    <span className="font-bold text">
+                      {distancerender(activity.distance)}
+                    </span>
+
+                    <span className="font-bold text">{activity.heartrate}</span>
+                  </p>
+                </div>
+              ))}
+            </ScrollContainer>
             <div className="text-black">{stravaData.name}</div>
-            <div className="grid grid-cols-4 gap-4 justify-items-center">
+            <div className="grid grid-cols-4 gap-4 justify-items-center -mt-2">
               <StravaTile
                 title="Distanz"
                 display={totaldistance()}

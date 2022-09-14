@@ -22,6 +22,14 @@ exports.seed = async function (knex) {
       alt: "510",
       apiLocationId: "102867714",
     },
+    {
+      id: 3,
+      locationName: "Bad Wiessee",
+      lat: "48.72",
+      long: "11.72",
+      alt: "747",
+      apiLocationId: "102953318",
+    },
   ]);
   await knex("users").del();
   await knex("users").insert([

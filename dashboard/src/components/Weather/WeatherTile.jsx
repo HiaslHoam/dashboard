@@ -5,7 +5,7 @@ function WeatherTile({ type, weather }) {
   return (
     <div>
       {type === "info" && (
-        <div className="bg-white dark:bg-zinc-800 shadow-md tile-big flex flex-col justify-center rounded-2xl text-black dark:text-white text-xs">
+        <div className="bg-white dark:bg-zinc-800 shadow-md tile flex flex-col justify-center rounded-2xl text-black dark:text-white text-xs">
           <div>
             <p>
               <span className="font-semibold text-2xl ml-1">
@@ -20,7 +20,7 @@ function WeatherTile({ type, weather }) {
         </div>
       )}
       {type === "infodaily" && (
-        <div className="bg-white dark:bg-zinc-800 shadow-md tile-big flex flex-col justify-center rounded-2xl text-black dark:text-white text-xs">
+        <div className="bg-white dark:bg-zinc-800 shadow-md tile flex flex-col justify-center rounded-2xl text-black dark:text-white text-xs">
           <div className="font-semibold">
             <div className="text-lg ml-1 -mb-1">{weather.maxTemp}°</div>
             <div className="text-md ml-1">{weather.minTemp}°</div>

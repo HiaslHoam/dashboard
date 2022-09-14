@@ -75,6 +75,9 @@ export const getWeatherForecastByLocationId = async (locationId) => {
   if (!weather) {
     throw new ServerError("No weather could be found for this location ID.");
   }
+  weather.sort(function (a, b) {
+    return a.time.localeCompare(b.time);
+  });
   return weather;
 };
 

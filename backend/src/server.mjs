@@ -13,6 +13,7 @@ import {
   getWeatherForecastByLocationIdHandler,
   getWeatherHandler,
 } from "./routes/weather.mjs";
+import { getLocationsHandler } from "./routes/locations.mjs";
 
 export const getServer = () => {
   // Create a new http (express) server
@@ -31,7 +32,7 @@ export const getServer = () => {
       method: "get",
       path: "/",
       handler: async (req, res) => {
-        return res.sendStatus(200);
+        return res.status(200);
       },
     },
     {
@@ -41,13 +42,13 @@ export const getServer = () => {
     },
     {
       method: "get",
-      path: "/weather",
-      handler: getWeatherHandler,
+      path: "/users/:id",
+      handler: getUserByIdHandler,
     },
     {
       method: "get",
-      path: "/users/:id",
-      handler: getUserByIdHandler,
+      path: "/weather",
+      handler: getWeatherHandler,
     },
     {
       method: "get",
@@ -60,10 +61,16 @@ export const getServer = () => {
       handler: getWeatherForecastByLocationIdHandler,
     },
     {
+      method: "get",
+      path: "/locations",
+      handler: getLocationsHandler,
+    },
+    {
       method: "post",
       path: "/login",
       handler: async (req, res) => {
         const { id, password } = req.params;
+        console.log(id);
         const token = await loginUser(id, password);
         return res.json({ token });
       },

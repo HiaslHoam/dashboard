@@ -13,7 +13,7 @@ exports.up = async function (knex) {
     tbl.timestamps();
   });
   await knex.schema.createTable("locations", (tbl) => {
-    tbl.uuid("id").primary();
+    tbl.increments("id").primary();
     tbl.string("locationName").notNullable();
     tbl.integer("lat").notNullable();
     tbl.integer("long").notNullable();
