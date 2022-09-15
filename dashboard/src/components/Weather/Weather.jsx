@@ -39,18 +39,18 @@ function Weather({ locationId }) {
         {weather && (
           <div className="flex flex-row items-center justify-between drop-shadow-md ">
             <div>
-              <p className="text-white text-l font-light min-w-fit text-left">
+              <p className="text-white forecast-text text-l font-light min-w-fit text-left">
                 {weather?.symbolPhrase}
               </p>
               <div className="flex flex-row gap-2 items-center mt-2 ">
-                <p className="text-5xl font-light text-white max-w-fit max-h-fit">
+                <p className="text-5xl font-light text-white max-w-fit max-h-fit forecast-text">
                   {weather?.temperature}°
                 </p>
                 <p className="text-white font-thin">|</p>
-                <p className="text-white">{location}</p>
+                <p className="text-white forecast-text">{location}</p>
               </div>
             </div>
-            <div className="shadow-md tile bg-white flex flex-col justify-center rounded-2xl text-black dark:text-white text-xs">
+            <div className="shadow-md tile backdrop-blur flex flex-col justify-center rounded-2xl text-black dark:text-white text-xs">
               <div>
                 <WeatherLogo weather={weather}></WeatherLogo>
               </div>

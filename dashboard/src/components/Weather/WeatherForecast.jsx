@@ -29,11 +29,11 @@ function WeatherForecast({ locationId }) {
             currentHours = ("0" + currentHours).slice(-2);
             return (
               <div key={index}>
-                <div className="flex flex-col items-center">
+                <div className="flex flex-col items-center ">
                   <div>
-                    <div className="forecast-text">
+                    <div className="forecast-text font-medium">
                       {currentHours}
-                      <span className="text-2xs align-top">00</span>
+                      <span className="text-2xs align-top font-light">00</span>
                     </div>
                     <WeatherTile type="symbol" weather={forecast}></WeatherTile>
                   </div>
@@ -52,7 +52,7 @@ function WeatherForecast({ locationId }) {
               <div key={index}>
                 <div className="flex flex-col items-center">
                   <div>
-                    <div className="forecast-text">
+                    <div className="forecast-text font-medium">
                       {forecast.time.substring(8, 10) +
                         "." +
                         forecast.time.substring(5, 7)}
