@@ -51,4 +51,12 @@ exports.seed = async function (knex) {
     },
   ]);
   await knex("weather").del();
+  await knex("strava").del();
+  await knex("strava").insert([
+    {
+      id: 1,
+      userId: 1,
+      stravaRefresh: "18e853f11cea61874f6358ee1986c07db2d15166",
+    },
+  ]);
 };

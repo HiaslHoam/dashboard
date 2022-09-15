@@ -9,9 +9,9 @@ function sleep(ms) {
 export async function getWeatherForAllLocations() {
   const locations = await database("locations");
   locations.forEach((location) => {
-    writeWeatherCurrent(location.id);
-    writeWeatherForecastHourly(location.id);
-    writeWeatherForecastDaily(location.id);
+    //writeWeatherCurrent(location.id);
+    //writeWeatherForecastHourly(location.id);
+    //writeWeatherForecastDaily(location.id);
   });
 }
 
@@ -31,7 +31,7 @@ export async function fetchWeatherForecast(
       tempunit: "C",
       windunit: "MS",
       tz: "Europe/Berlin",
-      periods: "8",
+      periods: "12",
       dataset: "full",
       lang: "de",
     },
@@ -230,7 +230,7 @@ export async function writeWeatherForecastDaily(locationId) {
       };
       const existing = await database("weather")
         .where("isForecast", "=", true)
-        .where("forecastType", "=", "hourly")
+        .where("forecastType", "=", "daily")
         .where("locationId", "=", weather.locationId)
         .where("time", "=", weather.time);
       if (existing.length > 0) {

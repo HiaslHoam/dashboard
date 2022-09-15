@@ -72,7 +72,7 @@ export const getWeatherForecastHourlyByLocationId = async (locationId) => {
     .where("isForecast", "=", true)
     .where("forecastType", "=", "hourly")
     .orderBy("time", "desc")
-    .limit(7);
+    .limit(11);
   if (!weather) {
     throw new ServerError("No weather could be found for this location ID.");
   }
@@ -114,7 +114,7 @@ export const getWeatherForecastByLocationId = async (locationId) => {
     .where("isForecast", "=", true)
     .where("forecastType", "=", "daily")
     .orderBy("time", "desc")
-    .limit(7);
+    .limit(11);
   if (!weather) {
     throw new ServerError("No weather could be found for this location ID.");
   }

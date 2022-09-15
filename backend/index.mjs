@@ -155,6 +155,6 @@ const app = getServer();
 
 app.listen(8000, () => {
   console.log("Server started at http://localhost:8000");
-  getWeatherForAllLocations();
-  //setInterval(getWeatherForAllLocations, 300000);
+  //getWeatherForAllLocations();
+  setInterval(getWeatherForAllLocations, 600000);
 });

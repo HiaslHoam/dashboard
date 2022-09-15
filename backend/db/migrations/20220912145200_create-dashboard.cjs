@@ -57,6 +57,22 @@ exports.up = async function (knex) {
     tbl.integer("confidence");
     tbl.timestamp("createdAt").notNullable().defaultTo(knex.fn.now());
   });
+  await knex.schema.createTable("strava", (tbl) => {
+    tbl.increments("id").notNullable().index().unique();
+    tbl.uuid("userId").unsigned();
+    tbl.foreign("userId").references("users.id");
+    tbl.string("stravaRefresh");
+    tbl.timestamps();
+  });
+
+  await knex.schema.createTable("activities", (tbl) => {
+    tbl.increments("id").notNullable().index().unique();
+    tbl.uuid("userId").unsigned();
+    tbl.foreign("userId").references("users.id");
+    tbl.string("type");
+    tbl.string("distance");
+    tbl.timestamps();
+  });
 };
 
 /**
@@ -67,4 +83,6 @@ exports.down = async function (knex) {
   await knex.schema.dropTableIfExists("users");
   await knex.schema.dropTableIfExists("weather");
   await knex.schema.dropTableIfExists("locations");
+  await knex.schema.dropTableIfExists("strava");
+  await knex.schema.dropTableIfExists("activities");
 };
