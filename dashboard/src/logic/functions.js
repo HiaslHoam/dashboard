@@ -2,7 +2,7 @@ export async function getWeather(locationId) {
   const axios = require("axios");
   try {
     const response = await axios.get(
-      `http://localhost:8000/weather/current/${locationId}`
+      `http://192.168.178.28:8000/weather/current/${locationId}`
     );
     return response;
   } catch (err) {
@@ -10,11 +10,23 @@ export async function getWeather(locationId) {
   }
 }
 
-export async function getWeatherForecast(locationId) {
+export async function getWeatherForecastHourly(locationId) {
   const axios = require("axios");
   try {
     const response = await axios.get(
-      `http://localhost:8000/weather/forecast/${locationId}`
+      `http://192.168.178.28:8000/weather/forecast/hourly/${locationId}`
+    );
+    return response;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+export async function getWeatherForecastDaily(locationId) {
+  const axios = require("axios");
+  try {
+    const response = await axios.get(
+      `http://192.168.178.28:8000/weather/forecast/daily/${locationId}`
     );
     return response;
   } catch (err) {
@@ -25,7 +37,7 @@ export async function getWeatherForecast(locationId) {
 export async function getStravaRefreshToken() {
   const axios = require("axios");
   try {
-    const response = await axios.get("http://192.168.178.20:8000/users/1");
+    const response = await axios.get("http://192.168.178.28:8000/users/1");
     return response;
   } catch (err) {
     console.error(err);
@@ -55,8 +67,8 @@ export async function getStravaData() {
         },
       };
       const before = Math.floor(Date.now() / 1000);
-      //const after = getMonday();
-      let after = 1652375110;
+      const after = getMonday();
+      //let after = 1652375110;
       const response = await axios.get(
         `https://www.strava.com/api/v3/athlete/activities?before=${before}&after=${after}`,
         options

@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from "react";
 import WeatherTile from "./WeatherTile";
-import data_daily from "./data_daily.json";
-import { getWeatherForecast } from "../../logic/functions";
+import {
+  getWeatherForecastHourly,
+  getWeatherForecastDaily,
+} from "../../logic/functions";
 import ScrollContainer from "react-indiana-drag-scroll";
 
 function WeatherForecast({ locationId }) {
-  console.log(locationId);
-  const [forecast, setForecast] = useState([]);
+  const [forecastHourly, setForecastHourly] = useState([]);
+  const [forecastDaily, setForecastDaily] = useState([]);
   const WeatherFetch = async () => {
-    const forecastHourly = await getWeatherForecast(locationId);
-    setForecast(forecastHourly.data);
+    const forecastHourly = await getWeatherForecastHourly(locationId);
+    const forecastDaily = await getWeatherForecastDaily(locationId);
+    console.log(forecastDaily.data);
+    setForecastHourly(forecastHourly.data);
+    setForecastDaily(forecastDaily.data);
   };
   useEffect(() => {
     WeatherFetch();
@@ -18,7 +23,7 @@ function WeatherForecast({ locationId }) {
     <div className="">
       <div className="WeatherForecast text-white shadow-lg rounded-2xl p-4">
         <ScrollContainer className="forecaster flex flex-row gap-4 overflow-hidden">
-          {forecast.map((forecast, index) => {
+          {forecastHourly.map((forecast, index) => {
             const date = new Date(forecast.time);
             let currentHours = date.getHours();
             currentHours = ("0" + currentHours).slice(-2);
@@ -41,16 +46,16 @@ function WeatherForecast({ locationId }) {
           })}
         </ScrollContainer>
 
-        <div className="forecaster flex flex-row gap-4 overflow-hidden mt-10">
-          {data_daily.forecast.map((forecast, index) => {
+        <ScrollContainer className="forecaster flex flex-row gap-4 overflow-hidden mt-10">
+          {forecastDaily.map((forecast, index) => {
             return (
               <div key={index}>
                 <div className="flex flex-col items-center">
                   <div>
                     <div className="forecast-text">
-                      {forecast.date.substring(8, 10) +
+                      {forecast.time.substring(8, 10) +
                         "." +
-                        forecast.date.substring(5, 7)}
+                        forecast.time.substring(5, 7)}
                     </div>
                     <WeatherTile type="symbol" weather={forecast}></WeatherTile>
                   </div>
@@ -64,7 +69,7 @@ function WeatherForecast({ locationId }) {
               </div>
             );
           })}
-        </div>
+        </ScrollContainer>
       </div>
     </div>
   );
