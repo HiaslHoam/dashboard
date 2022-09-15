@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { getWeather } from "../../logic/functions";
+import WeatherLogo from "./WeatherLogo";
 
 function Weather({ locationId }) {
   const [weather, setWeather] = useState([]);
@@ -49,7 +50,11 @@ function Weather({ locationId }) {
                 <p className="text-white">{location}</p>
               </div>
             </div>
-            <div className="text-white font-thin"></div>
+            <div className="shadow-md tile bg-white flex flex-col justify-center rounded-2xl text-black dark:text-white text-xs">
+              <div>
+                <WeatherLogo weather={weather}></WeatherLogo>
+              </div>
+            </div>
           </div>
         )}
       </div>

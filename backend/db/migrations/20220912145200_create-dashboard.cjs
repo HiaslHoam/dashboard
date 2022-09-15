@@ -9,7 +9,6 @@ exports.up = async function (knex) {
     tbl.string("passwordDigest").notNullable();
     tbl.uuid("currentLocation").unsigned();
     tbl.foreign("currentLocation").references("locations.id");
-    tbl.string("stravaRefresh");
     tbl.timestamps();
   });
   await knex.schema.createTable("locations", (tbl) => {

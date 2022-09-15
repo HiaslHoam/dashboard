@@ -38,7 +38,6 @@ exports.seed = async function (knex) {
       username: "Matthias",
       passwordDigest:
         "$2b$10$El92.8dwUoM27pSb5Ibjy.IxEluLKsk7VX3RgqCwDNq3iUyw6eg56",
-      stravaRefresh: "18e853f11cea61874f6358ee1986c07db2d15166",
       currentLocation: 1,
     },
     {

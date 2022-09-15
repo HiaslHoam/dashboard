@@ -32,7 +32,7 @@ function WeatherTile({ type, weather }) {
         </div>
       )}
       {type === "symbol" && (
-        <div className="bg-white dark:bg-zinc-800 shadow-md tile flex flex-col justify-center rounded-2xl text-black dark:text-white text-xs">
+        <div className="shadow-md tile backdrop-blur flex flex-col justify-center rounded-2xl text-black dark:text-white text-xs">
           <div>
             <WeatherLogo weather={weather}></WeatherLogo>
           </div>

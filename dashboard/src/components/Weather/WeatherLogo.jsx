@@ -1,108 +1,66 @@
 import React from "react";
-import sunny from "../../images/weather/d000_100.png";
-import partlycloudy from "../../images/weather/d200_300.png";
-import partlycloudythunder from "../../images/weather/d240_340.png";
-import partlycloudyrain from "../../images/weather/d210_310_220_320.png";
-import partlycloudyrainnight from "../../images/weather/n210_310_220_320.png";
-import lightrain from "../../images/weather/d410.png";
-import mediumrain from "../../images/weather/d420.png";
-import heavyrain from "../../images/weather/d430.png";
-import partlycloudynight from "../../images/weather/n200_300.png";
-import covered from "../../images/weather/d400.png";
+import clearNight from "../../images/weather/night/n000_n100.png";
+import partlyCloudyNight from "../../images/weather/night/n200_n300.png";
+import coveredNight from "../../images/weather/night/n400.png";
+import cirrusNight from "../../images/weather/night/n500.png";
+import fogNight from "../../images/weather/night/n600.png";
+import partlyCloudyDrizzleNight from "../../images/weather/night/n210_n310_n410.png";
+import partlyCloudyRainNight from "../../images/weather/night/n220_n320_n420.png";
+import partlyCloudyHeavyRainNight from "../../images/weather/night/n430.png";
+import partlyCloudyThunderNight from "../../images/weather/night/n240.png";
+import cloudyThunderNight from "../../images/weather/night/n340.png";
+import partlyCloudyThunderRainNight from "../../images/weather/night/n440.png";
+import partlyCloudySleetNight from "../../images/weather/night/n211_n311_n411__n221_n321_n421_n431.png";
+import partlyCloudySnowNight from "../../images/weather/night/n212_n312_n412__n222_n322_n422_n432.png";
+import clearDay from "../../images/weather/day/d000_d100.png";
+import partlyCloudyDay from "../../images/weather/day/d200_d300.png";
 
-export const sources = {
-  d100: sunny,
-  d000: sunny,
+export const weatherLogos = {
+  n000: clearNight,
+  n100: clearNight,
+  n200: partlyCloudyNight,
+  n300: partlyCloudyNight,
+  n400: coveredNight,
+  n500: cirrusNight,
+  n600: fogNight,
+  n210: partlyCloudyDrizzleNight,
+  n310: partlyCloudyDrizzleNight,
+  n410: partlyCloudyDrizzleNight,
+  n220: partlyCloudyRainNight,
+  n320: partlyCloudyRainNight,
+  n420: partlyCloudyRainNight,
+  n430: partlyCloudyHeavyRainNight,
+  n240: partlyCloudyThunderNight,
+  n340: cloudyThunderNight,
+  n440: partlyCloudyThunderRainNight,
+  n211: partlyCloudySleetNight,
+  n311: partlyCloudySleetNight,
+  n411: partlyCloudySleetNight,
+  n221: partlyCloudySleetNight,
+  n321: partlyCloudySleetNight,
+  n421: partlyCloudySleetNight,
+  n431: partlyCloudySleetNight,
+  n212: partlyCloudySnowNight,
+  n312: partlyCloudySnowNight,
+  n412: partlyCloudySnowNight,
+  n222: partlyCloudySnowNight,
+  n322: partlyCloudySnowNight,
+  n422: partlyCloudySnowNight,
+  n432: partlyCloudySnowNight,
+  d000: clearDay,
+  d100: clearDay,
+  d200: partlyCloudyDay,
+  d300: partlyCloudyDay,
 };
 function WeatherLogo({ weather }) {
   return (
     <>
-      {(weather?.symbol === "d100" || weather?.symbol === "d000") && (
-        <img
-          title={weather?.symbolPhrase}
-          className="max-h-24"
-          src={sources[weather.symbol]}
-          alt=""
-        ></img>
-      )}
-      {(weather?.symbol === "d200" || weather?.symbol === "d300") && (
-        <img
-          title={weather?.symbolPhrase}
-          className="max-h-24"
-          src={partlycloudy}
-          alt=""
-        ></img>
-      )}
-      {(weather?.symbol === "n200" || weather?.symbol === "n300") && (
-        <img
-          title={weather?.symbolPhrase}
-          className="max-h-24"
-          src={partlycloudynight}
-          alt=""
-        ></img>
-      )}
-      {(weather?.symbol === "d210" ||
-        weather?.symbol === "d220" ||
-        weather?.symbol === "d310" ||
-        weather?.symbol === "d320") && (
-        <img
-          title={weather?.symbolPhrase}
-          className="max-h-24"
-          src={partlycloudyrain}
-          alt=""
-        ></img>
-      )}
-      {(weather?.symbol === "d410" || weather?.symbol === "n410") && (
-        <img
-          title={weather?.symbolPhrase}
-          className="max-h-24"
-          src={lightrain}
-          alt=""
-        ></img>
-      )}
-      {(weather?.symbol === "d420" || weather?.symbol === "n420") && (
-        <img
-          title={weather?.symbolPhrase}
-          className="max-h-24"
-          src={mediumrain}
-          alt=""
-        ></img>
-      )}
-      {(weather?.symbol === "d430" || weather?.symbol === "n430") && (
-        <img
-          title={weather?.symbolPhrase}
-          className="max-h-24"
-          src={heavyrain}
-          alt=""
-        ></img>
-      )}
-      {(weather?.symbol === "d240" || weather?.symbol === "d340") && (
-        <img
-          title={weather?.symbolPhrase}
-          className="max-h-24"
-          src={partlycloudythunder}
-          alt=""
-        ></img>
-      )}
-      {(weather?.symbol === "n210" ||
-        weather?.symbol === "n220" ||
-        weather?.symbol === "n310" ||
-        weather?.symbol === "n320") && (
-        <img
-          title={weather?.symbolPhrase}
-          className="max-h-24"
-          src={partlycloudyrainnight}
-          alt=""
-        ></img>
-      )}
-      {weather?.symbol === "d400" && (
-        <img
-          title={weather?.symbolPhrase}
-          className="max-h-24"
-          src={covered}
-          alt=""
-        ></img>
-      )}
+      <img
+        title={weather?.symbolPhrase}
+        className="max-h-24"
+        src={weatherLogos[weather.symbol]}
+        alt=""
+      ></img>
     </>
   );
 }

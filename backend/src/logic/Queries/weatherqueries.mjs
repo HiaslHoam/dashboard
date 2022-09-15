@@ -1,19 +1,6 @@
-import { database } from "../logic/database.mjs";
+import { database } from "../database.mjs";
 import axios from "axios";
 import axiosqueue from "./axiosqueue.mjs";
-
-function sleep(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
-export async function getWeatherForAllLocations() {
-  const locations = await database("locations");
-  locations.forEach((location) => {
-    //writeWeatherCurrent(location.id);
-    //writeWeatherForecastHourly(location.id);
-    //writeWeatherForecastDaily(location.id);
-  });
-}
 
 export async function fetchWeatherForecast(
   apiLocationId,

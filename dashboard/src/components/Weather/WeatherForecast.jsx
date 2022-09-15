@@ -12,7 +12,7 @@ function WeatherForecast({ locationId }) {
   const WeatherFetch = async () => {
     const forecastHourly = await getWeatherForecastHourly(locationId);
     const forecastDaily = await getWeatherForecastDaily(locationId);
-    console.log(forecastDaily.data);
+    console.log(forecastHourly.data);
     setForecastHourly(forecastHourly.data);
     setForecastDaily(forecastDaily.data);
   };
