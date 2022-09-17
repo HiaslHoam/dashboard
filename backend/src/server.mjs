@@ -15,6 +15,7 @@ import {
   getWeatherHandler,
 } from "./routes/weather.mjs";
 import { getLocationsHandler } from "./routes/locations.mjs";
+import { getActivitiesHandler } from "./routes/activities.mjs";
 
 export const getServer = () => {
   // Create a new http (express) server
@@ -70,6 +71,11 @@ export const getServer = () => {
       method: "get",
       path: "/locations",
       handler: getLocationsHandler,
+    },
+    {
+      method: "get",
+      path: "/activities",
+      handler: getActivitiesHandler,
     },
     {
       method: "post",

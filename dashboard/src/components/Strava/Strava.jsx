@@ -9,6 +9,7 @@ function Strava() {
   const StravaData = async () => {
     const response = await getStravaData();
     setStravaData(response.data);
+    console.log(response.data);
   };
 
   function distancerender(distance) {
@@ -32,9 +33,9 @@ function Strava() {
     let totalbpm = null;
     let totaltime = null;
     stravaData.forEach((item) => {
-      if (item.has_heartrate) {
-        totalbpm += item.average_heartrate * item.moving_time;
-        totaltime += item.moving_time;
+      if (item.hasHeartrate) {
+        totalbpm += item.averageHeartrate * item.movingTime;
+        totaltime += item.movingTime;
       }
     });
     const output = totalbpm / totaltime;
@@ -46,8 +47,8 @@ function Strava() {
     let totaltime = null;
     let total = null;
     stravaData.forEach((item) => {
-      totalspd += item.average_speed * 3.6 * item.moving_time;
-      totaltime += item.moving_time;
+      totalspd += item.averageSpeed * 3.6 * item.movingTime;
+      totaltime += item.movingTime;
     });
     total = totalspd / totaltime;
     if (total <= 10) {
@@ -60,9 +61,7 @@ function Strava() {
   function totalsuffer() {
     let total = null;
     stravaData.forEach((item) => {
-      if (item.has_heartrate) {
-        total += item.suffer_score;
-      }
+      total += item.sufferScore;
     });
     return total;
   }
@@ -70,7 +69,7 @@ function Strava() {
   function totalhm() {
     let total = null;
     stravaData.forEach((item) => {
-      total += item.total_elevation_gain;
+      total += item.elevationGain;
     });
     if (total <= 10) {
       return total.toFixed(1) + "m";
@@ -82,7 +81,7 @@ function Strava() {
   function totaltime() {
     let total = null;
     stravaData.forEach((item) => {
-      total += item.moving_time;
+      total += item.movingTime;
     });
     if (total <= 3600) {
       return (total / 60).toFixed(0) + "min";
@@ -94,7 +93,7 @@ function Strava() {
   function totalkudos() {
     let total = null;
     stravaData.forEach((item) => {
-      total += item.kudos_count;
+      total += item.kudosCount;
     });
     return total;
   }

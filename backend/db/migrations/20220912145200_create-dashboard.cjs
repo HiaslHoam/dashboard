@@ -65,12 +65,30 @@ exports.up = async function (knex) {
   });
 
   await knex.schema.createTable("activities", (tbl) => {
-    tbl.increments("id").notNullable().index().unique();
+    tbl.uuid("activityId").notNullable().index().unique();
     tbl.uuid("userId").unsigned();
     tbl.foreign("userId").references("users.id");
+    tbl.string("name", 511);
+    tbl.integer("distance");
+    tbl.integer("movingTime");
+    tbl.integer("elapsedTime");
+    tbl.integer("elevationGain");
     tbl.string("type");
-    tbl.string("distance");
-    tbl.timestamps();
+    tbl.timestamp("startDate");
+    tbl.integer("kudosCount");
+    tbl.string("mapPoly", 1023);
+    tbl.integer("averageSpeed");
+    tbl.integer("maxSpeed");
+    tbl.boolean("deviceWatts");
+    tbl.integer("averageWatts");
+    tbl.boolean("hasHeartrate")
+    tbl.integer("averageHeartrate");
+    tbl.integer("maxHeartrate");
+    tbl.integer("elevHigh");
+    tbl.integer("elevLow");
+    tbl.integer("sufferScore");
+    tbl.integer("kilojoules");
+    tbl.timestamp("createdAt").notNullable().defaultTo(knex.fn.now());
   });
 };
 
