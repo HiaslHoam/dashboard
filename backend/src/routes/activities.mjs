@@ -2,7 +2,7 @@ import { database } from "../logic/database.mjs";
 import ServerError from "../logic/error.mjs";
 
 export const getActivity = async () => {
-  const activities = await database("activities");
+  const activities = await database("activities").orderBy("distance", "desc");
   return activities;
 };
 
