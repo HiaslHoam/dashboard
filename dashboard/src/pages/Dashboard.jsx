@@ -10,7 +10,7 @@ import Weather from "../components/Weather/Weather";
 import WeatherForecast from "../components/Weather/WeatherForecast";
 
 function Dashboard() {
-  const location = "3";
+  const location = "2";
   return (
     <div className="">
       {/* <h1 className="text-xl font-bold dark:text-white">Dashboard</h1> */}

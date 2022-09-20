@@ -9,9 +9,9 @@ export function getMonday() {
   return Math.floor(prevMonday / 1000);
 }
 
-export async function fetchStravaData(stravaRefresh) {
+export async function fetchStravaData(stravaRefresh, before, after) {
   try {
-    const response = await axios.post(
+    const response = await axiosqueue.post(
       `https://www.strava.com/oauth/token?client_id=88883&client_secret=ec860807904b007cf49401fcd46df778782db75d&grant_type=refresh_token&refresh_token=${stravaRefresh}`
     );
     const access_token = response.data.access_token;
@@ -22,12 +22,11 @@ export async function fetchStravaData(stravaRefresh) {
           Authorization: `Bearer ${access_token}`,
         },
       };
-      const before = Math.floor(Date.now() / 1000);
-      const after = getMonday();
-      const response = await axios.get(
+      const response = await axiosqueue.get(
         `https://www.strava.com/api/v3/athlete/activities?before=${before}&after=${after}`,
         options
       );
+      console.log(response.data);
       return response;
     } catch (err) {
       console.error(err);
@@ -37,8 +36,13 @@ export async function fetchStravaData(stravaRefresh) {
   }
 }
 
-export async function writeStravaActivityData(userId, stravaRefresh) {
-  const response = await fetchStravaData(stravaRefresh);
+export async function writeStravaActivityData(
+  userId,
+  stravaRefresh,
+  before,
+  after
+) {
+  const response = await fetchStravaData(stravaRefresh, before, after);
   await Promise.all(
     response.data.map(async (activityStream) => {
       const {

@@ -31,11 +31,25 @@ export async function queries() {
     `Alle ${stravaTimer} Minuten werden die Strava Aktivitäten aktuallisiert`
   );
 
-  cron.schedule(`*/${stravaTimer} * * * *`, () => {
-    stravauser.forEach((user) => {
-      writeStravaActivityData(user.userId, user.stravaRefresh);
-    });
-  });
+  const numWeeks = 2;
+  const start = new Date(2020, 2, 1, 0, 0);
+  const now = new Date();
+  console.log(start.getTime() < now.getTime());
+  /*stravauser.forEach(async (user) => {
+    console.log("Test");
+    for (let count = start; count.getTime() < now.getTime(); ) {
+      const after = Math.floor(count.getTime() / 1000);
+      const before = count.setDate(count.getDate() + numWeeks * 7) / 1000;
+
+      await writeStravaActivityData(
+        user.userId,
+        user.stravaRefresh,
+        before,
+        after
+      );
+    }
+  });*/
+  cron.schedule(`*/${stravaTimer} * * * *`, () => {});
   cron.schedule(`*/${frcHourly} * * * *`, () => {
     locations.forEach((location) => {
       writeWeatherForecastHourly(location.id);
