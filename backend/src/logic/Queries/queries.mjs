@@ -26,7 +26,7 @@ export async function queries() {
   );
   const stravauser = await database("strava");
   const strTotal = Object.keys(stravauser).length;
-  const stravaTimer = Math.ceil((24 * 60) / totalReq / strTotal);
+  const stravaTimer = Math.ceil((24 * 60) / totalReq / strTotal) + 10;
   console.log(
     `Alle ${stravaTimer} Minuten werden die Strava Aktivitäten aktuallisiert`
   );
@@ -49,6 +49,10 @@ export async function queries() {
       );
     }
   });*/
+  stravauser.forEach(async (user) => {
+    console.log("Test");
+    await writeStravaActivityData(user.userId, user.stravaRefresh);
+  });
   cron.schedule(`*/${stravaTimer} * * * *`, () => {
     stravauser.forEach(async (user) => {
       console.log("Test");

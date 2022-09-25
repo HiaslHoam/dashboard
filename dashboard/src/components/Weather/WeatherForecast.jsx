@@ -51,14 +51,6 @@ function WeatherForecast({ locationId }) {
             return (
               <div key={index}>
                 <div className="flex flex-col items-center">
-                  <div>
-                    <div className="forecast-text font-medium">
-                      {forecast.time.substring(8, 10) +
-                        "." +
-                        forecast.time.substring(5, 7)}
-                    </div>
-                    <WeatherTile type="symbol" weather={forecast}></WeatherTile>
-                  </div>
                   <div className="mt-2">
                     <WeatherTile
                       type="infodaily"

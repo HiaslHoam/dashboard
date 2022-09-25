@@ -28,10 +28,35 @@ export async function fetchStravaData(stravaRefresh, before, after) {
       const response = await axiosqueue.get(
         `https://www.strava.com/api/v3/athlete/activities?before=${
           before.getTime() / 1000
-        }&after=${Math.floor(1640995200000 / 1000)}`,
+        }&after=${Math.floor(after.getTime() / 1000)}`,
         options
       );
-      console.log(response.data);
+      return response;
+    } catch (err) {
+      console.error(err);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+export async function getStravaActivityById(id, stravaRefresh) {
+  try {
+    const response = await axiosqueue.post(
+      `https://www.strava.com/oauth/token?client_id=88883&client_secret=ec860807904b007cf49401fcd46df778782db75d&grant_type=refresh_token&refresh_token=${stravaRefresh}`
+    );
+    const access_token = response.data.access_token;
+    console.log("access_token gained");
+    try {
+      const options = {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      };
+      const response = await axiosqueue.get(
+        `https://www.strava.com/api/v3/activities/${id}`,
+        options
+      );
       return response;
     } catch (err) {
       console.error(err);
@@ -47,9 +72,9 @@ export async function writeStravaActivityData(
   before,
   after
 ) {
-  const response = await fetchStravaData(stravaRefresh, before, after);
+  const activites = await fetchStravaData(stravaRefresh, before, after);
   await Promise.all(
-    response.data.map(async (activityStream) => {
+    activites.data.map(async (activityStream) => {
       const {
         name,
         distance,
@@ -73,6 +98,7 @@ export async function writeStravaActivityData(
         elev_low,
         suffer_score,
       } = activityStream;
+
       const activityId = id.toFixed(0);
       const movingTime = moving_time;
       const elapsedTime = elapsed_time;
@@ -92,6 +118,13 @@ export async function writeStravaActivityData(
       const elevLow = elev_low;
       const sufferScore = suffer_score;
 
+      const activityFetch = await getStravaActivityById(id, stravaRefresh);
+      if (activityFetch.data.photo_count != 0) {
+        const photoUrl = activityFetch.data.photos.primary.urls["600"];
+        return photoUrl;
+      }
+      console.log(photoUrl);
+
       const activity = {
         name,
         distance,
@@ -107,6 +140,9 @@ export async function writeStravaActivityData(
         maxSpeed,
         deviceWatts,
         averageWatts,
+        averageNormalizedWatts:
+          activityFetch.data.weighted_average_watts &&
+          activityFetch.data.weighted_average_watts,
         kilojoules,
         hasHeartrate,
         averageHeartrate,
@@ -114,9 +150,11 @@ export async function writeStravaActivityData(
         elevHigh,
         elevLow,
         sufferScore,
+        photoUrl:
+          activityFetch.data.photo_count != 0 &&
+          activityFetch.data.photos.primary.urls["600"],
         userId: userId,
       };
-      console.log(startDate.getTime() / 1000);
       const existing = await database("activities").where(
         "activityId",
         "=",

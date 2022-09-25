@@ -148,8 +148,8 @@
 }
 
 .tile-big {
-  width: 100px;
-  height: 100px;
+  width: 136px;
+  height: 142px;
 }
 
 .forecaster {
@@ -181,4 +181,14 @@
 
 .scroll-container {
   overflow: scroll !important;
+}
+
+.text-2xs {
+  font-size: 0.6rem;
+  line-height: 1rem /* 16px */;
+}
+
+.text-3xs {
+  font-size: 0.5rem;
+  line-height: 1rem /* 16px */;
 }

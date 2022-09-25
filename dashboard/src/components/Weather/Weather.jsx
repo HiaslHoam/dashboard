@@ -52,7 +52,7 @@ function Weather({ locationId }) {
             </div>
             <div className="shadow-md tile backdrop-blur flex flex-col justify-center rounded-2xl text-black dark:text-white text-xs">
               <div>
-                <WeatherLogo weather={weather}></WeatherLogo>
+                <WeatherLogo weather={weather} size="normal"></WeatherLogo>
               </div>
             </div>
           </div>

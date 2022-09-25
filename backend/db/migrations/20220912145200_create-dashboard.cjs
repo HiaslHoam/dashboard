@@ -81,13 +81,15 @@ exports.up = async function (knex) {
     tbl.integer("maxSpeed");
     tbl.boolean("deviceWatts");
     tbl.integer("averageWatts");
-    tbl.boolean("hasHeartrate")
+    tbl.boolean("hasHeartrate");
     tbl.integer("averageHeartrate");
     tbl.integer("maxHeartrate");
     tbl.integer("elevHigh");
     tbl.integer("elevLow");
     tbl.integer("sufferScore");
     tbl.integer("kilojoules");
+    tbl.integer("averageNormalizedWatts");
+    tbl.string("photoUrl");
     tbl.timestamp("createdAt").notNullable().defaultTo(knex.fn.now());
   });
 };

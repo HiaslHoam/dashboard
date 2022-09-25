@@ -91,15 +91,25 @@ export const weatherLogos = {
   d422: snowDay,
   d432: snowDay,
 };
-function WeatherLogo({ weather }) {
+function WeatherLogo({ weather, size }) {
   return (
     <>
-      <img
-        title={weather?.symbolPhrase}
-        className="max-h-24"
-        src={weatherLogos[weather.symbol]}
-        alt=""
-      ></img>
+      {size === "normal" && (
+        <img
+          title={weather?.symbolPhrase}
+          className="max-h-24"
+          src={weatherLogos[weather.symbol]}
+          alt=""
+        ></img>
+      )}
+      {size === "small" && (
+        <img
+          title={weather?.symbolPhrase}
+          className="max-h-12"
+          src={weatherLogos[weather.symbol]}
+          alt=""
+        ></img>
+      )}
     </>
   );
 }
