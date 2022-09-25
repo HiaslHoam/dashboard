@@ -6,7 +6,8 @@ export function getMonday() {
   var oldDate = new Date();
   var prevMonday = new Date(oldDate.toDateString());
   prevMonday.setDate(prevMonday.getDate() - ((prevMonday.getDay() + 6) % 7));
-  return Math.floor(prevMonday / 1000);
+
+  return prevMonday;
 }
 
 export async function fetchStravaData(stravaRefresh, before, after) {
@@ -22,8 +23,12 @@ export async function fetchStravaData(stravaRefresh, before, after) {
           Authorization: `Bearer ${access_token}`,
         },
       };
+      const before = new Date();
+      const after = getMonday();
       const response = await axiosqueue.get(
-        `https://www.strava.com/api/v3/athlete/activities?before=${before}&after=${after}`,
+        `https://www.strava.com/api/v3/athlete/activities?before=${
+          before.getTime() / 1000
+        }&after=${Math.floor(1640995200000 / 1000)}`,
         options
       );
       console.log(response.data);
@@ -73,7 +78,7 @@ export async function writeStravaActivityData(
       const elapsedTime = elapsed_time;
       const elevationGain = total_elevation_gain;
       const type = sport_type;
-      const startDate = start_date_local;
+      const startDate = new Date(start_date_local);
       const kudosCount = kudos_count;
       const mapPoly = map?.summary_polyline;
       const averageSpeed = average_speed;
@@ -95,7 +100,7 @@ export async function writeStravaActivityData(
         elapsedTime,
         elevationGain,
         type,
-        startDate,
+        startDate: startDate.getTime() / 1000,
         kudosCount,
         mapPoly,
         averageSpeed,
@@ -111,6 +116,7 @@ export async function writeStravaActivityData(
         sufferScore,
         userId: userId,
       };
+      console.log(startDate.getTime() / 1000);
       const existing = await database("activities").where(
         "activityId",
         "=",

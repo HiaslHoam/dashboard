@@ -1,8 +1,13 @@
 import { database } from "../logic/database.mjs";
 import ServerError from "../logic/error.mjs";
+import { getMonday } from "../logic/Queries/stravaqueries.mjs";
 
 export const getActivity = async () => {
-  const activities = await database("activities").orderBy("distance", "desc");
+  const monday = getMonday();
+  const mondayFetch = monday.getTime() / 1000;
+  const activities = await database("activities")
+    .where("startDate", ">=", mondayFetch)
+    .orderBy("startDate", "desc");
   return activities;
 };
 

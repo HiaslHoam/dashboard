@@ -49,7 +49,12 @@ export async function queries() {
       );
     }
   });*/
-  cron.schedule(`*/${stravaTimer} * * * *`, () => {});
+  cron.schedule(`*/${stravaTimer} * * * *`, () => {
+    stravauser.forEach(async (user) => {
+      console.log("Test");
+      await writeStravaActivityData(user.userId, user.stravaRefresh);
+    });
+  });
   cron.schedule(`*/${frcHourly} * * * *`, () => {
     locations.forEach((location) => {
       writeWeatherForecastHourly(location.id);
@@ -60,6 +65,7 @@ export async function queries() {
       writeWeatherCurrent(location.id);
     });
   });
+
   cron.schedule(`*/${frcDaily} * * * *`, () => {
     locations.forEach((location) => {
       writeWeatherForecastDaily(location.id);
