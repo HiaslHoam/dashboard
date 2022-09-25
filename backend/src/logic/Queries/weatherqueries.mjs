@@ -162,7 +162,6 @@ export async function writeWeatherForecastDaily(locationId) {
     locationAlt,
     "daily"
   );
-  console.log(response.data);
   await Promise.all(
     response.data.forecast.map(async (forecast) => {
       const {

@@ -49,16 +49,12 @@ export async function queries() {
       );
     }
   });*/
-  stravauser.forEach(async (user) => {
-    console.log("Test");
-    await writeStravaActivityData(user.userId, user.stravaRefresh);
-  });
-  cron.schedule(`*/${stravaTimer} * * * *`, () => {
+  /* cron.schedule(`*//*${stravaTimer} * * * *`, () => {
     stravauser.forEach(async (user) => {
       console.log("Test");
       await writeStravaActivityData(user.userId, user.stravaRefresh);
     });
-  });
+  }); */
   cron.schedule(`*/${frcHourly} * * * *`, () => {
     locations.forEach((location) => {
       writeWeatherForecastHourly(location.id);

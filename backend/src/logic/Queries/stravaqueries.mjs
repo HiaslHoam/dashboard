@@ -119,11 +119,6 @@ export async function writeStravaActivityData(
       const sufferScore = suffer_score;
 
       const activityFetch = await getStravaActivityById(id, stravaRefresh);
-      if (activityFetch.data.photo_count != 0) {
-        const photoUrl = activityFetch.data.photos.primary.urls["600"];
-        return photoUrl;
-      }
-      console.log(photoUrl);
 
       const activity = {
         name,
@@ -150,9 +145,7 @@ export async function writeStravaActivityData(
         elevHigh,
         elevLow,
         sufferScore,
-        photoUrl:
-          activityFetch.data.photo_count != 0 &&
-          activityFetch.data.photos.primary.urls["600"],
+        photoUrl,
         userId: userId,
       };
       const existing = await database("activities").where(

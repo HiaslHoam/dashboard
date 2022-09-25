@@ -93,6 +93,15 @@ export const getServer = () => {
     app[route.method](route.path, async (req, res) => {
       try {
         await route.handler(req, res);
+        const now = new Date();
+        console.log(
+          "[" +
+            now.toLocaleTimeString() +
+            "]" +
+            " " +
+            route.method.toUpperCase(),
+          req.url
+        );
       } catch (err) {
         if (err instanceof ServerError) {
           return res.status(400).send(err.message);

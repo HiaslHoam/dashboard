@@ -45,7 +45,6 @@ export const getWeatherCurrentByLocationId = async (locationId) => {
 export const getWeatherCurrentByLocationIdHandler = async (req, res) => {
   const { locationId } = req.params;
   const weather = await getWeatherCurrentByLocationId(locationId);
-  console.log(weather);
   return res.json({
     locationId: weather.locationId,
     time: weather.time,

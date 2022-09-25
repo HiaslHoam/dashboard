@@ -37,6 +37,8 @@ export const getActivitiesHandler = async (req, res) => {
       elevHigh: activity.elevHigh,
       elevLow: activity.elevLow,
       sufferScore: activity.sufferScore,
+      photoUrl: activity.photoUrl,
+      averageNormalizedPower: activity.averageNormalizedPower,
       userId: activity.userId,
     }))
   );
