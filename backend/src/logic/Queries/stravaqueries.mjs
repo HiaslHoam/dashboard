@@ -118,8 +118,6 @@ export async function writeStravaActivityData(
       const elevLow = elev_low;
       const sufferScore = suffer_score;
 
-      const activityFetch = await getStravaActivityById(id, stravaRefresh);
-
       const activity = {
         name,
         distance,
@@ -135,9 +133,6 @@ export async function writeStravaActivityData(
         maxSpeed,
         deviceWatts,
         averageWatts,
-        averageNormalizedWatts:
-          activityFetch.data.weighted_average_watts &&
-          activityFetch.data.weighted_average_watts,
         kilojoules,
         hasHeartrate,
         averageHeartrate,
@@ -145,9 +140,17 @@ export async function writeStravaActivityData(
         elevHigh,
         elevLow,
         sufferScore,
-        photoUrl,
+        //photoUrl,
         userId: userId,
       };
+
+      const activityFetch = await getStravaActivityById(id, stravaRefresh);
+      let activityDetail = {
+        ...activity,
+        photoUrl: activityFetch.data.photos?.primary?.urls["600"],
+      };
+      console.log(activityFetch.data.photos?.primary?.urls["600"]);
+
       const existing = await database("activities").where(
         "activityId",
         "=",
@@ -164,7 +167,7 @@ export async function writeStravaActivityData(
       }
 
       console.log(`Writing Strava Activity`);
-      return database("activities").insert(activity);
+      return database("activities").insert(activityDetail);
     })
   );
 }

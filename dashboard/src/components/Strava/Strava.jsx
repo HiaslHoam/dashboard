@@ -4,12 +4,13 @@ import { getStravaData } from "../../logic/functions";
 import ScrollContainer from "react-indiana-drag-scroll";
 
 function Strava() {
+  document.getElementById("a").style.backgroundImage = "url(images/img.jpg)";
   const [stravaData, setStravaData] = useState();
 
   const StravaData = async () => {
     const response = await getStravaData();
+    console.log(response);
     setStravaData(response.data);
-    console.log(response.data);
   };
 
   function distancerender(distance) {
@@ -105,13 +106,12 @@ function Strava() {
   return (
     <div>
       <div className="Strava shadow-lg rounded-2xl p-4">
-        {stravaData && (
+        <div className="flex flex-row justify-between text-white">
+          <div className="font-bold">STRAVA</div>
+          <div>Diese Woche</div>
+        </div>
+        {stravaData?.length > 0 && (
           <div className="flex flex-col gap-3 justify-between text-white ">
-            <div className="flex flex-row justify-between">
-              <div className="font-bold">STRAVA</div>
-              <div>Diese Woche</div>
-            </div>
-
             {/* <div className="bg-white dark:bg-zinc-800 shadow-md rounded-2xl">
               <div className="activities text-black dark:text-white text-xs m-1 overflow-hidden">
                 {stravaData.map((activity, index) => (
@@ -138,6 +138,7 @@ function Strava() {
                 <div
                   key={index}
                   className="bg-white dark:bg-zinc-800 shadow-md mb-2 tile-big flex flex-col justify-center rounded-2xl text-black dark:text-white text-xs"
+                  id="a"
                 >
                   {activity.name}
                   <p>
@@ -167,6 +168,11 @@ function Strava() {
               <StravaTile title="Kudos" display={totalkudos()}></StravaTile>
               <StravaTile title="⌀ Gesch." display={avgpace()}></StravaTile>
             </div>
+          </div>
+        )}
+        {stravaData?.length === 0 && (
+          <div className="flex flex-col gap-3 justify-between text-white">
+            Keine Aktivitäten diese Woche
           </div>
         )}
       </div>

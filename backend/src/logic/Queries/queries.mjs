@@ -34,7 +34,6 @@ export async function queries() {
   const numWeeks = 2;
   const start = new Date(2020, 2, 1, 0, 0);
   const now = new Date();
-  console.log(start.getTime() < now.getTime());
   /*stravauser.forEach(async (user) => {
     console.log("Test");
     for (let count = start; count.getTime() < now.getTime(); ) {
@@ -49,12 +48,12 @@ export async function queries() {
       );
     }
   });*/
-  /* cron.schedule(`*//*${stravaTimer} * * * *`, () => {
+  cron.schedule(`*/${stravaTimer} * * * *`, () => {
     stravauser.forEach(async (user) => {
       console.log("Test");
       await writeStravaActivityData(user.userId, user.stravaRefresh);
     });
-  }); */
+  });
   cron.schedule(`*/${frcHourly} * * * *`, () => {
     locations.forEach((location) => {
       writeWeatherForecastHourly(location.id);
