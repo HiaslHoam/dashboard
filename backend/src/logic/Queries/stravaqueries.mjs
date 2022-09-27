@@ -99,6 +99,8 @@ export async function writeStravaActivityData(
         suffer_score,
       } = activityStream;
 
+      console.log(activityStream);
+
       const activityId = id.toFixed(0);
       const movingTime = moving_time;
       const elapsedTime = elapsed_time;

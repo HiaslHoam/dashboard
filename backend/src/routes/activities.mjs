@@ -5,8 +5,8 @@ import { getMonday } from "../logic/Queries/stravaqueries.mjs";
 export const getActivity = async () => {
   const monday = getMonday();
   const mondayFetch = monday.getTime() / 1000;
-  const activities = await database("activities")
-    .where("startDate", ">=", mondayFetch)
+  const activities = await database("activities") /*
+    .where("startDate", ">=", mondayFetch)*/
     .orderBy("startDate", "desc");
   return activities;
 };

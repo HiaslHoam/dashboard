@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import StravaTile from "./StravaTile";
 import { getStravaData } from "../../logic/functions";
 import ScrollContainer from "react-indiana-drag-scroll";
+import { useRef } from "react";
 
 function Strava() {
-  document.getElementById("a").style.backgroundImage = "url(images/img.jpg)";
   const [stravaData, setStravaData] = useState();
+  const ref = useRef(null);
 
   const StravaData = async () => {
     const response = await getStravaData();
@@ -20,6 +21,14 @@ function Strava() {
       return (distance / 1000).toFixed(1) + "km";
     } else {
       return (distance / 1000).toFixed(0) + "km";
+    }
+  }
+
+  function timerender(time) {
+    if (time <= 3600) {
+      return (time / 60).toFixed(0) + "min";
+    } else {
+      return (time / 3600).toFixed(0) + "h";
     }
   }
 
@@ -84,11 +93,7 @@ function Strava() {
     stravaData.forEach((item) => {
       total += item.movingTime;
     });
-    if (total <= 3600) {
-      return (total / 60).toFixed(0) + "min";
-    } else {
-      return (total / 3600).toFixed(0) + "h";
-    }
+    return timerender(total);
   }
 
   function totalkudos() {
@@ -105,14 +110,15 @@ function Strava() {
 
   return (
     <div>
-      <div className="Strava shadow-lg rounded-2xl p-4">
-        <div className="flex flex-row justify-between text-white">
-          <div className="font-bold">STRAVA</div>
-          <div>Diese Woche</div>
-        </div>
-        {stravaData?.length > 0 && (
-          <div className="flex flex-col gap-3 justify-between text-white ">
-            {/* <div className="bg-white dark:bg-zinc-800 shadow-md rounded-2xl">
+      <div className="Strava shadow-lg rounded-2xl">
+        <div className="p-4">
+          <div className="flex flex-row justify-between text-white">
+            <div className="font-bold">STRAVA</div>
+            <div>Diese Woche</div>
+          </div>
+          {stravaData?.length > 0 && (
+            <div className="flex flex-col gap-3 justify-between text-white ">
+              {/* <div className="bg-white dark:bg-zinc-800 shadow-md rounded-2xl">
               <div className="activities text-black dark:text-white text-xs m-1 overflow-hidden">
                 {stravaData.map((activity, index) => (
                   <div key={index} className="">
@@ -133,48 +139,115 @@ function Strava() {
                 ))}
               </div>
             </div> */}
-            <ScrollContainer className="grid grid-flow-col gap-5">
-              {stravaData.map((activity, index) => (
-                <div
-                  key={index}
-                  className="bg-white dark:bg-zinc-800 shadow-md mb-2 tile-big flex flex-col justify-center rounded-2xl text-black dark:text-white text-xs"
-                  id="a"
-                >
-                  {activity.name}
-                  <p>
-                    <span className="font-bold text">
-                      {distancerender(activity.distance)}
-                    </span>
-
-                    <span className="font-bold text">{activity.heartrate}</span>
-                  </p>
-                </div>
-              ))}
-            </ScrollContainer>
-            <div className="text-black">{stravaData.name}</div>
-            <div className="grid grid-cols-4 gap-4 justify-items-center -mt-2">
-              <StravaTile
-                title="Distanz"
-                display={totaldistance()}
-              ></StravaTile>
-              <StravaTile
-                title="Aktivit."
-                display={stravaData.length}
-              ></StravaTile>
-              <StravaTile title="⌀ Puls" display={avghrt()}></StravaTile>
-              <StravaTile title="Anstr." display={totalsuffer()}></StravaTile>
-              <StravaTile title="Anstieg" display={totalhm()}></StravaTile>
-              <StravaTile title="Dauer" display={totaltime()}></StravaTile>
-              <StravaTile title="Kudos" display={totalkudos()}></StravaTile>
-              <StravaTile title="⌀ Gesch." display={avgpace()}></StravaTile>
+              <ScrollContainer className="grid grid-flow-col gap-5">
+                {stravaData.map((activity, index) => {
+                  return (
+                    <div>
+                      <div
+                        key={index}
+                        className="shadow-md mb-2 tile-xl rounded-2xl text-white dark:text-white text-xs flex flex-col justify-between"
+                        ref={ref}
+                        id="test"
+                        style={{
+                          background: `url(${activity.photoUrl})`,
+                          backgroundSize: "cover",
+                          boxShadow:
+                            "rgb(0 0 0 / 70%) 1px 55px 40px -50px inset",
+                        }}
+                      >
+                        <div className="flex flex-row justify-between pl-2 pr-2 pt-1">
+                          <div>{activity.name}</div>
+                          <div className="font-bold text">{activity.type}</div>
+                        </div>
+                        <div className="flex flex-row gap-3 justify-center">
+                          <StravaTile
+                            title="Distanz"
+                            display={distancerender(activity.distance)}
+                            background="blur"
+                          ></StravaTile>
+                          <StravaTile
+                            title="Anstieg"
+                            display={activity.elevationGain?.toFixed(0) + "m"}
+                            background="blur"
+                          ></StravaTile>
+                          {activity.hasHeartrate === 1 && (
+                            <StravaTile
+                              title="⌀ Puls"
+                              display={activity.averageHeartrate?.toFixed(0)}
+                              background="blur"
+                            ></StravaTile>
+                          )}
+                          {activity.hasHeartrate === 1 && (
+                            <StravaTile
+                              title="Anstr."
+                              display={activity.sufferScore}
+                              background="blur"
+                            ></StravaTile>
+                          )}
+                          {activity.hasHeartrate === 0 && (
+                            <StravaTile
+                              title="Dauer"
+                              display={timerender(activity.movingTime)}
+                              background="blur"
+                            ></StravaTile>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </ScrollContainer>
+              <div className="text-black">{stravaData.name}</div>
+              <ScrollContainer className="flex flex-row gap-4 justify-items-center -mt-2">
+                <StravaTile
+                  title="Distanz"
+                  display={totaldistance()}
+                  background="plain"
+                ></StravaTile>
+                <StravaTile
+                  title="Aktivit."
+                  display={stravaData.length}
+                  background="plain"
+                ></StravaTile>
+                <StravaTile
+                  title="⌀ Puls"
+                  display={avghrt()}
+                  background="plain"
+                ></StravaTile>
+                <StravaTile
+                  title="Anstr."
+                  display={totalsuffer()}
+                  background="plain"
+                ></StravaTile>
+                <StravaTile
+                  title="Anstieg"
+                  display={totalhm()}
+                  background="plain"
+                ></StravaTile>
+                <StravaTile
+                  title="Dauer"
+                  display={totaltime()}
+                  background="plain"
+                ></StravaTile>
+                <StravaTile
+                  title="Kudos"
+                  display={totalkudos()}
+                  background="plain"
+                ></StravaTile>
+                <StravaTile
+                  title="⌀ Gesch."
+                  display={avgpace()}
+                  background="plain"
+                ></StravaTile>
+              </ScrollContainer>
             </div>
-          </div>
-        )}
-        {stravaData?.length === 0 && (
-          <div className="flex flex-col gap-3 justify-between text-white">
-            Keine Aktivitäten diese Woche
-          </div>
-        )}
+          )}
+          {stravaData?.length === 0 && (
+            <div className="flex flex-col gap-3 justify-between text-white">
+              Keine Aktivitäten diese Woche
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
