@@ -154,7 +154,7 @@ app.get("/verify", (request, response, next) => {
 const app = getServer();
 
 app.listen(8000, () => {
-  console.log("Server started at http://localhost:8000");
+  console.log("Server started at http://192.168.178.20:8000");
   queries();
   //setInterval(getWeatherForAllLocations, 600000);
 });

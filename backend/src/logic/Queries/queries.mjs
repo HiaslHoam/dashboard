@@ -64,7 +64,6 @@ export async function queries() {
       writeWeatherCurrent(location.id);
     });
   });
-
   cron.schedule(`*/${frcDaily} * * * *`, () => {
     locations.forEach((location) => {
       writeWeatherForecastDaily(location.id);

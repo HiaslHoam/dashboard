@@ -1,13 +1,28 @@
 import { database } from "../logic/database.mjs";
 import ServerError from "../logic/error.mjs";
 import { getMonday } from "../logic/Queries/stravaqueries.mjs";
+import polyline from "@mapbox/polyline";
+import fs from "fs";
+import mapshaper from "mapshaper";
 
 export const getActivity = async () => {
   const monday = getMonday();
   const mondayFetch = monday.getTime() / 1000;
-  const activities = await database("activities") /*
-    .where("startDate", ">=", mondayFetch)*/
+  const geo = [];
+  const activities = await database("activities")
+    .where("startDate", ">=", mondayFetch)
     .orderBy("startDate", "desc");
+  activities.map((activity) => {
+    if (activity.activityId == 7884488354) {
+      const test = polyline.decode(activity.mapPoly);
+      for (var i = 0; i < test.length; i++) {
+        console.log(
+          "[" + test[i][1].toFixed(4) + "," + test[i][0].toFixed(4) + "],"
+        );
+      }
+    }
+  });
+
   return activities;
 };
 
