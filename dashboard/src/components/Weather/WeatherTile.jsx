@@ -7,7 +7,16 @@ import { BiTargetLock } from "react-icons/bi";
 import { TbTemperature } from "react-icons/tb";
 import { ImDroplet } from "react-icons/im";
 import { GiWindTurbine } from "react-icons/gi";
-import { BsFillArrowDownCircleFill } from "react-icons/bs";
+import {
+  BsFillArrowDownCircleFill,
+  BsFillArrowDownLeftCircleFill,
+  BsFillArrowLeftCircleFill,
+  BsFillArrowUpLeftCircleFill,
+  BsFillArrowUpCircleFill,
+  BsArrowUpRightCircleFill,
+  BsFillArrowRightCircleFill,
+  BsFillArrowDownRightCircleFill,
+} from "react-icons/bs";
 
 function WeatherTile({ type, weather }) {
   function getDay(time) {
@@ -23,7 +32,7 @@ function WeatherTile({ type, weather }) {
     };
     return day[date.getDay()];
   }
-  console.log(weather.windDirString);
+  console.log(weather.windDir);
   return (
     <div>
       {type === "info" && (
@@ -63,28 +72,48 @@ function WeatherTile({ type, weather }) {
             </div>
             <div className="">
               <GiWindTurbine></GiWindTurbine>
-              {weather.windDirString === "N" && (
-                <div className="text-3xs absolute top-16 right-5 shadow-lg">
+              {weather.windDir >= 0 && weather.windDir <= 22 && (
+                <div className="text-3xs absolute top-14 right-5 shadow-lg">
                   <BsFillArrowDownCircleFill></BsFillArrowDownCircleFill>
                 </div>
               )}
-              {weather.windDirString === "NE" && (
-                <div className="text-3xs absolute top-16 right-5 shadow-lg">
-                  <BsFillArrowDownCircleFill></BsFillArrowDownCircleFill>
+              {weather.windDir >= 23 && weather.windDir <= 67 && (
+                <div className="text-3xs absolute top-15 right-5 shadow-lg">
+                  <BsFillArrowDownLeftCircleFill></BsFillArrowDownLeftCircleFill>
                 </div>
               )}
-              {weather.windDirString === "N" && (
-                <div className="text-3xs absolute top-16 right-5 shadow-lg">
-                  <BsFillArrowDownCircleFill></BsFillArrowDownCircleFill>
+              {weather.windDir >= 68 && weather.windDir <= 112 && (
+                <div className="text-3xs absolute top-15 right-5 shadow-lg">
+                  <BsFillArrowLeftCircleFill></BsFillArrowLeftCircleFill>
                 </div>
               )}
-              {weather.windDirString === "N" && (
-                <div className="text-3xs absolute top-16 right-5 shadow-lg">
-                  <BsFillArrowDownCircleFill></BsFillArrowDownCircleFill>
+              {weather.windDir >= 113 && weather.windDir <= 157 && (
+                <div className="text-3xs absolute top-15 right-5 shadow-lg">
+                  <BsFillArrowUpLeftCircleFill></BsFillArrowUpLeftCircleFill>
                 </div>
               )}
-              {weather.windDirString === "N" && (
-                <div className="text-3xs absolute top-16 right-5 shadow-lg">
+              {weather.windDir >= 158 && weather.windDir <= 202 && (
+                <div className="text-3xs absolute top-15 right-5 shadow-lg">
+                  <BsFillArrowUpCircleFill></BsFillArrowUpCircleFill>
+                </div>
+              )}
+              {weather.windDir >= 203 && weather.windDir <= 247 && (
+                <div className="text-3xs absolute top-15 right-5 shadow-lg">
+                  <BsArrowUpRightCircleFill></BsArrowUpRightCircleFill>
+                </div>
+              )}
+              {weather.windDir >= 248 && weather.windDir <= 292 && (
+                <div className="text-3xs absolute top-15 right-5 shadow-lg">
+                  <BsFillArrowRightCircleFill></BsFillArrowRightCircleFill>
+                </div>
+              )}
+              {weather.windDir >= 293 && weather.windDir <= 337 && (
+                <div className="text-3xs absolute top-15 right-5 shadow-lg">
+                  <BsFillArrowDownRightCircleFill></BsFillArrowDownRightCircleFill>
+                </div>
+              )}
+              {weather.windDir >= 338 && weather.windDir <= 360 && (
+                <div className="text-3xs absolute top-14 right-5 shadow-lg">
                   <BsFillArrowDownCircleFill></BsFillArrowDownCircleFill>
                 </div>
               )}
@@ -109,9 +138,11 @@ function WeatherTile({ type, weather }) {
               <div>
                 <div className="text-base">
                   {(weather.maxWindSpeed * 3.6).toFixed(0)}
+                  <span className="text-2xs">km/h</span>
                 </div>
                 <div className="text-xs">
                   {(weather.maxWindGust * 3.6).toFixed(0)}
+                  <span className="text-4xs">km/h</span>
                 </div>
               </div>
             </div>
@@ -165,6 +196,60 @@ function WeatherTile({ type, weather }) {
               <WeatherLogo weather={weather} size="small"></WeatherLogo>
             </div>
           </div>
+          <div className="flex gap-6 justify-center text-white mb-1 -mt-3">
+            <TbTemperature></TbTemperature>
+            <div className="rainblue text-sm">
+              <ImDroplet></ImDroplet>
+            </div>
+            <div className="">
+              <GiWindTurbine></GiWindTurbine>
+              {weather.windDir >= 0 && weather.windDir <= 22 && (
+                <div className="text-3xs absolute top-14 right-5 shadow-lg">
+                  <BsFillArrowDownCircleFill></BsFillArrowDownCircleFill>
+                </div>
+              )}
+              {weather.windDir >= 23 && weather.windDir <= 67 && (
+                <div className="text-3xs absolute top-15 right-5 shadow-lg">
+                  <BsFillArrowDownLeftCircleFill></BsFillArrowDownLeftCircleFill>
+                </div>
+              )}
+              {weather.windDir >= 68 && weather.windDir <= 112 && (
+                <div className="text-3xs absolute top-15 right-5 shadow-lg">
+                  <BsFillArrowLeftCircleFill></BsFillArrowLeftCircleFill>
+                </div>
+              )}
+              {weather.windDir >= 113 && weather.windDir <= 157 && (
+                <div className="text-3xs absolute top-15 right-5 shadow-lg">
+                  <BsFillArrowUpLeftCircleFill></BsFillArrowUpLeftCircleFill>
+                </div>
+              )}
+              {weather.windDir >= 158 && weather.windDir <= 202 && (
+                <div className="text-3xs absolute top-15 right-5 shadow-lg">
+                  <BsFillArrowUpCircleFill></BsFillArrowUpCircleFill>
+                </div>
+              )}
+              {weather.windDir >= 203 && weather.windDir <= 247 && (
+                <div className="text-3xs absolute top-15 right-5 shadow-lg">
+                  <BsArrowUpRightCircleFill></BsArrowUpRightCircleFill>
+                </div>
+              )}
+              {weather.windDir >= 248 && weather.windDir <= 292 && (
+                <div className="text-3xs absolute top-15 right-5 shadow-lg">
+                  <BsFillArrowRightCircleFill></BsFillArrowRightCircleFill>
+                </div>
+              )}
+              {weather.windDir >= 293 && weather.windDir <= 337 && (
+                <div className="text-3xs absolute top-15 right-5 shadow-lg">
+                  <BsFillArrowDownRightCircleFill></BsFillArrowDownRightCircleFill>
+                </div>
+              )}
+              {weather.windDir >= 338 && weather.windDir <= 360 && (
+                <div className="text-3xs absolute top-14 right-5 shadow-lg">
+                  <BsFillArrowDownCircleFill></BsFillArrowDownCircleFill>
+                </div>
+              )}
+            </div>
+          </div>
           <div className="bg-white w-full font-semibold pl-2 pr-2">
             <div className="grid grid-cols-3">
               <div>
@@ -184,9 +269,11 @@ function WeatherTile({ type, weather }) {
               <div>
                 <div className="text-base">
                   {(weather.maxWindSpeed * 3.6).toFixed(0)}
+                  <span className="text-2xs">km/h</span>
                 </div>
                 <div className="text-xs">
                   {(weather.maxWindGust * 3.6).toFixed(0)}
+                  <span className="text-4xs">km/h</span>
                 </div>
               </div>
             </div>
