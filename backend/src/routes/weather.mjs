@@ -20,7 +20,7 @@ export const getWeatherHandler = async (req, res) => {
       relHumidity: weather.relHumidity,
       windSpeed: weather.windSpeed,
       windGust: weather.windGust,
-      windDirString: weather.windDirString,
+      windDir: weather.windDir,
       precipProb: weather.precipProb,
       precipRate: weather.precipRate,
       uvIndex: weather.uvIndex,
@@ -113,7 +113,7 @@ export const getWeatherForecastByLocationId = async (locationId) => {
     .where("isForecast", "=", true)
     .where("forecastType", "=", "daily")
     .orderBy("time", "desc")
-    .limit(11);
+    .limit(12);
   if (!weather) {
     throw new ServerError("No weather could be found for this location ID.");
   }

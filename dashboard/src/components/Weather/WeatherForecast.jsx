@@ -10,11 +10,11 @@ function WeatherForecast({ locationId }) {
   const [forecastHourly, setForecastHourly] = useState([]);
   const [forecastDaily, setForecastDaily] = useState([]);
   const WeatherFetch = async () => {
-    const forecastHourly = await getWeatherForecastHourly(locationId);
-    const forecastDaily = await getWeatherForecastDaily(locationId);
-    console.log(forecastHourly.data);
-    setForecastHourly(forecastHourly.data);
-    setForecastDaily(forecastDaily.data);
+    const responseHourly = await getWeatherForecastHourly(locationId);
+    const responseDaily = await getWeatherForecastDaily(locationId);
+    setForecastHourly(responseHourly.data);
+    setForecastDaily(responseDaily.data);
+    console.log(responseDaily.data);
   };
   useEffect(() => {
     WeatherFetch();
@@ -47,7 +47,19 @@ function WeatherForecast({ locationId }) {
         </ScrollContainer>
 
         <ScrollContainer className="forecaster flex flex-row gap-4 overflow-hidden mt-10">
-          {forecastDaily.map((forecast, index) => {
+          <div>
+            <div className="flex flex-col items-center">
+              <div className="mt-2">
+                {forecastDaily.length > 0 && (
+                  <WeatherTile
+                    type="infotoday"
+                    weather={forecastDaily[0]}
+                  ></WeatherTile>
+                )}
+              </div>
+            </div>
+          </div>
+          {forecastDaily.slice(1, 12).map((forecast, index) => {
             return (
               <div key={index}>
                 <div className="flex flex-col items-center">
